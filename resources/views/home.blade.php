@@ -4,5 +4,8 @@
 
 @section('content')
 
+<div>
+    test ting
+</div>
 
 @endsection
