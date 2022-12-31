@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-lg bg-body-tertiary d-flex flex-row" style="align-items: center; justify-content:space-around">
     <div>
-      <div class="navbar-brand" style="color: #00A651; font-family: Comfortaa; font-size:30px"  >Tripify</div>
+      <div class="navbar-brand" style="color: #3DA43A; font-family: Comfortaa; font-size:30px"  >Tripify</div>
     </div>
     <div class="navbar-nav" style="align-items:center; justify-content:space-evenly">
         <a class="nav-link m-2" href="#">Home</a>
