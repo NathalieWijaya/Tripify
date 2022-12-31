@@ -10,7 +10,7 @@
         <a class="nav-link" href="#">About Us</a>
     </div>
     <div style="font-size:25px">
-        <a href="" style="color: black;" class="m-3"> 
+        <a href="" style="color: black; text-decoration:none" class="m-3"> 
             <i class="bi bi-cart3" ></i>
         </a>
         <a href="" style="color: black;"> 
