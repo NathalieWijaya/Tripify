@@ -10,24 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600&display=swap" rel="stylesheet">
     <link href="//db.onlinewebfonts.com/c/cc1fd3ac8497388cfc4da587e06951b0?family=SQ+Market+Regular" rel="stylesheet" type="text/css"/>
-    <style>
-        @font-face {
-            font-family: 'Larsseit';
-            src: url('Larsseit/Larsseit.otf');
-        }
-    /* </style>
-    <style>
-    @font-face {
-    font-family: 'Larsseit-Bold';
-    src: url('Larsseit/Larsseit-Bold.otf');
-    }
-    </style>
-    <style> */
-    /* @font-face {
-    font-family: 'Comfortaa';
-    src: url('Comfortaa/Comfortaa-Regular.ttf');
-    } */
-    </style>
    
 </head>
 <body style="font-family: 'SQ Market Regular'; font-size: 14px">
