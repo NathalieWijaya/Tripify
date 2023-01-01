@@ -8,33 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <style>
-        @font-face {
-    font-family: 'Larsseit';
-    src: url('Larsseit/Larsseit.otf');
-    }
-    </style>
-    <style>
-        @font-face {
-    font-family: 'Larsseit-Bold';
-    src: url('Larsseit/Larsseit-Bold.otf');
-    }
-    </style>
-    <style>
-        @font-face {
-    font-family: 'Comfortaa';
-    src: url('Comfortaa/Comfortaa-Regular.ttf');
-    }
-    </style>
-   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600&display=swap" rel="stylesheet">
+    <link href="//db.onlinewebfonts.com/c/cc1fd3ac8497388cfc4da587e06951b0?family=SQ+Market+Regular" rel="stylesheet" type="text/css"/>
+ 
 </head>
-<body style="font-family: Larsseit">
+<body style="font-family: 'SQ Market Regular'; font-size: 14px">
     <header>
         @include('layout/header')
     </header>
-
     
-        @yield('content')
+    @yield('content')
 
     <footer>
         @include('layout/footer')
