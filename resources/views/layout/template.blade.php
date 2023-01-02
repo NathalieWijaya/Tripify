@@ -12,7 +12,7 @@
     <link href="//db.onlinewebfonts.com/c/cc1fd3ac8497388cfc4da587e06951b0?family=SQ+Market+Regular" rel="stylesheet" type="text/css"/>
    
 </head>
-<body style="font-family: 'SQ Market Regular'; font-size: 14px">
+<body style="font-family: 'SQ Market Regular'; font-size: 14px;">
     <header>
         @include('layout/header')
     </header>
