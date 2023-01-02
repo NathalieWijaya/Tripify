@@ -17,6 +17,15 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/adminInbox', function () {
+    return view('adminInbox');
+});
+Route::get('/requestTrip', function () {
+    return view('requestTrip');
+});
+Route::get('/addDestination', function () {
+    return view('addDestination');
+});
 Route::get('/inbox/admin', function () {
     return view('adminInbox');
 });
@@ -27,4 +36,5 @@ Route::get('/inbox/user', function () {
 
 Route::get('/purchase', function () {
     return view('purchase');
+
 });
