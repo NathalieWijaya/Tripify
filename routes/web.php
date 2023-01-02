@@ -26,3 +26,4 @@ Route::get('/requestTrip', function () {
 Route::get('/addDestination', function () {
     return view('addDestination');
 });
+
