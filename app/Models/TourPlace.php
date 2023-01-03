@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TourPlace extends Model
 {
     use HasFactory;
+    public function tour(){
+        return $this->belongsTo(Tour::class);
+    }
+
+    public function place(){
+        return $this->belongsTo(Place::class);
+    }
 }

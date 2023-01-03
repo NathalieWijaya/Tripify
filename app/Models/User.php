@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function requestTrip() {
+        $this->hasMany(RequestTrip::class);
+    }
+
+    public function transaction() {
+        $this->hasMany(Transaction::class);
+    }
 }
