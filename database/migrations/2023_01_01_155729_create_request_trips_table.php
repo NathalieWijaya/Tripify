@@ -17,12 +17,12 @@ class CreateRequestTripsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('total_guest');
-            $table->integer('max_price');
+            $table->bigInteger('max_price');
             $table->text('trip_plan')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamp('request_date')->nullable();
-            $table->foreignId('city_id')->references('id')->on('cities')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('province_id')->references('id')->on('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('status_id')->references('id')->on('statuses')->onDelete('cascade')->onUpdate('cascade');
             $table->text('note')->nullable();
             $table->timestamp('approval_time')->nullable();

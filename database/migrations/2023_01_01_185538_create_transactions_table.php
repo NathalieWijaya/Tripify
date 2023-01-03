@@ -17,6 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('transaction_time');
+            $table->bigInteger('total_price');
+            $table->enum('status', ['Unpaid', 'Paid']);
+            $table->timestamps();
+
         });
     }
 
