@@ -15,6 +15,7 @@ class CreateTransactionDetailsTable extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('tour_id')->references('id')->on('tours')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('quantity');
         });
