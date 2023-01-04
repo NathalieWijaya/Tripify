@@ -4,29 +4,6 @@
 
 @section('content')
 
-<style>
-
-/* .animate-icon {
-  transition: 0.4s;
-}
-.rotate {
-  transform:rotate(180deg);
-} */
-/* .rotate{
-    -moz-transition: all 2s linear;
-    -webkit-transition: all 2s linear;
-    transition: all 2s linear;
-}
-
-.rotate.down{
-    -ms-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-} */
-
-</style>
-
 <div class="d-flex justify-content-center my-5">
     <div style="width: 80%">
         <h3 style="color: #3DA43A; font-family: 'Comfortaa';">Inbox Request</h3>

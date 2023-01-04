@@ -10,9 +10,9 @@ class Cart extends Model
     use HasFactory;
     
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
     public function tour(){
-        return $this->hasOne(Tour::class);
+        return $this->belongsTo(Tour::class);
     }
 }
