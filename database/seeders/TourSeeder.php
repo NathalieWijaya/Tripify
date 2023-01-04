@@ -16,6 +16,7 @@ class TourSeeder extends Seeder
     {
         DB::table('tours')->insert([
             'province_id' => '1',
+            'tour_title' => 'Jakarta Day Trip',
             'description' => 'Taman Mini Indonesia Indah (TMII) merupakan kawasan wisata bertema budaya Indonesia yang berlokasi di Jakarta Timur. Kamu dapat melihat miniatur kepulauan Indonesia, menaiki kereta gantung, mengunjungi museum, Teater IMAX Keong Mas dan Teater Tanah Airku di TMII. Kamu bisa berfoto dan mengetahui banyak hal tentang sejarah Indonesia di TMII. Yuk, berwisata ke TMII bersama tur kami! Tur kami sangat menarik, kamu akan berjalan-jalan di TMII bersama dengan pemandu kami dan diantar oleh pengemudi yang bisa berbicara beberapa bahasa, menjadikan perjalananmu lebih mudah dan menyenangkan!',
             'start_date' => '2023-09-10',
             'end_date' => '2023-09-10',
@@ -27,6 +28,7 @@ class TourSeeder extends Seeder
         ]);
         DB::table('tours')->insert([
             'province_id' => '3',
+            'tour_title' => 'Jalan-jalan keliling Jogja 2 hari 1 malam',
             'description' => 'Tour 2 Hari 1 Malam, mengunjungi destinasi wisata di jogja meliputi Jalan Malioboro, Candi Prambanan dan berbagai tempat lainnya',
             'start_date' => '2023-09-11',
             'end_date' => '2023-09-12',
@@ -38,6 +40,7 @@ class TourSeeder extends Seeder
         ]);
         DB::table('tours')->insert([
             'province_id' => '3',
+            'tour_title' => 'Jogja Day Trip',
             'description' => 'Day Trip Tour, mengunjungi destinasi wisata di jogja meliputi Jalan Malioboro dan Candi Prambanan',
             'start_date' => '2023-09-13',
             'end_date' => '2023-09-13',

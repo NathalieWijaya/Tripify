@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DestinationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +24,8 @@ Route::get('/adminInbox', function () {
 Route::get('/requestTrip', function () {
     return view('requestTrip');
 });
-Route::get('/addDestination', function () {
-    return view('addDestination');
-});
+Route::get('/addDestination', [DestinationController::class, 'showProvince']);
+Route::post('/addDestination', [DestinationController::class, 'store']);
 
 Route::get('/inbox/admin', function () {
     return view('adminInbox');
