@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\InboxController;
-use App\Http\Controllers\StatusController;
+use App\Http\Controllers\DestinationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,14 +24,18 @@ Route::get('/adminInbox', function () {
 Route::get('/requestTrip', function () {
     return view('requestTrip');
 });
-Route::get('/addDestination', function () {
-    return view('addDestination');
+Route::get('/addDestination', [DestinationController::class, 'showProvince']);
+Route::post('/addDestination', [DestinationController::class, 'store']);
+
+Route::get('/inbox/admin', function () {
+    return view('adminInbox');
 });
 
-Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
-
-Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
+Route::get('/inbox/user', function () {
+    return view('userInbox');
+});
 
 Route::get('/purchase', function () {
     return view('purchase');
+
 });

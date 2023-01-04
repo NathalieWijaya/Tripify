@@ -15,6 +15,7 @@ class CreateToursTable extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
+            $table->text('tour_title');
             $table->foreignId('province_id')->references('id')->on('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description');
             $table->date('start_date');
