@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InboxController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,15 +29,10 @@ Route::get('/addDestination', function () {
     return view('addDestination');
 });
 
-Route::get('/inbox/admin', function () {
-    return view('adminInbox');
-});
+Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
 
-Route::get('/inbox/user', function () {
-    return view('userInbox');
-});
+Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 
 Route::get('/purchase', function () {
     return view('purchase');
-
 });
