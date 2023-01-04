@@ -18,6 +18,7 @@ class CreateToursTable extends Migration
             $table->text('tour_title');
             $table->foreignId('province_id')->references('id')->on('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description');
+            $table->integer('max_slot');
             $table->date('start_date');
             $table->date('end_date');
             $table->bigInteger('price');
