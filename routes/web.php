@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\ReqTripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,26 @@ Route::get('/', function () {
 Route::get('/adminInbox', function () {
     return view('adminInbox');
 });
-Route::get('/requestTrip', function () {
-    return view('requestTrip');
+
+
+
+// Route::get('/requestTrip', [ReqTripController::class, 'showProv']);
+
+Route::get('/requestTrip/{id}', function () {
+    $province = App\Models\Province::all();
+    return view('requestTrip',['province' => $province]);
 });
+
+Route::get('getPlace/{id}', function ($id) {
+    $place = App\Models\Place::where('province_id',$id)->get();
+    return response()->json($place);
+});
+Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
+
+Route::get('/addTour', function () {
+    return view('addTour');
+});
+
 Route::get('/addDestination', [DestinationController::class, 'showProvince']);
 Route::post('/addDestination', [DestinationController::class, 'store']);
 
