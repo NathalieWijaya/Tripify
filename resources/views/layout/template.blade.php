@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600&display=swap" rel="stylesheet">
     <link href="//db.onlinewebfonts.com/c/cc1fd3ac8497388cfc4da587e06951b0?family=SQ+Market+Regular" rel="stylesheet" type="text/css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="{{config('midtrans.client_key')}}">
+    </script>
 </head>
 <body style="font-family: 'SQ Market Regular'; font-size: 14px;">
     <header>

@@ -24,7 +24,5 @@ class CartSeeder extends Seeder
             'tour_id' => '2',
             'quantity' => '1'
         ]);
-
-        
     }
 }

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DestinationController;
-use App\Http\Controllers\ReqTripController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboxController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReqTripController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,15 +48,12 @@ Route::get('/addTour', function () {
 Route::get('/addDestination', [DestinationController::class, 'showProvince']);
 Route::post('/addDestination', [DestinationController::class, 'store']);
 
-Route::get('/inbox/admin', function () {
-    return view('adminInbox');
-});
+Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
 
-Route::get('/inbox/user', function () {
-    return view('userInbox');
-});
+Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 
-Route::get('/purchase', function () {
-    return view('purchase');
+Route::get('/cart/{id}', [CartController::class, 'index']);
 
-});
+Route::get('/purchase', [TransactionController::class, 'purchase']);
+
+
