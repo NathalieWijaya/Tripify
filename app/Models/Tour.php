@@ -19,4 +19,8 @@ class Tour extends Model
     public function transactionDetails(){
         return $this->hasMany(TransactionDetail::class);
     }
+
+    public function province(){
+        return $this->belongsTo(Province::class);
+    }
 }

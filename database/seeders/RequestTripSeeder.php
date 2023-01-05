@@ -23,7 +23,7 @@ class RequestTripSeeder extends Seeder
             'end_date' => '2023-05-10',
             'request_date' => now(),
             'province_id' => '1',
-            'status_id' => '1'
+            'status_id' => '2'
         ]);
         DB::table('request_trips')->insert([
             'user_id' => '3',
@@ -34,7 +34,7 @@ class RequestTripSeeder extends Seeder
             'end_date' => '2023-08-10',
             'request_date' => now(),
             'province_id' => '2',
-            'status_id' => '1'
+            'status_id' => '3'
         ]);
     }
 }
