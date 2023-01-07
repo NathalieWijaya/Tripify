@@ -36,6 +36,5 @@ Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 
 Route::get('/cart/{id}', [CartController::class, 'index']);
 
-Route::get('/purchase', [TransactionController::class, 'purchase']);
-
+Route::post('/purchase', [CartController::class, 'getCheckedCart']);
 

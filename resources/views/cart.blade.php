@@ -42,8 +42,8 @@
     <div style="width: 80%">
         <h1 style="color: #3DA43A; font-family: 'Comfortaa'; font-weight: 500; font-size: 30px;">Cart</h1>
 
-        <form action="/purchase" class="mt-5"  method="GET">
-            @csrf   
+        <form action="/purchase" class="mt-5"  method="post">
+         @csrf
 
             @foreach($cart as $c)
                 <!-- Detail Cart Start -->
@@ -57,12 +57,10 @@
                     </div>
                     <div class="ms-4 d-flex flex-row justify-content-between align-items-center" style="width: 80%">
                         <div>
-                         
                             <p class="mb-2" style="font-size: 20px; font-weight: bold">{{$c->tour->tour_title}}</p>
                             <p class="mb-3">
                                 <i class="bi bi-geo-alt">{{$c->tour->province->province_name}}, Indonesia</i>
                             </p>
-                          
                             @php
                                 $count = 1;
                                 $ms = "";
@@ -91,19 +89,19 @@
                                 echo "Rp". number_format($c->tour->price, 2, ",", ".");
                             @endphp
                             </p>
-
                         </div>
                     </div>
 
                     <div class="d-flex flex-column justify-content-between">
                         <div class="align-self-end">
-                            <input class="form-check-input" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="flexCheckDefault">
+                            <input class="form-check-input" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
+                            <input style="display:none" name="id[]" value="{{$c->id}}">
                         </div>
 
                         <div class="d-flex flex-row align-items-center">
                             <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
-                            <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" value="1">
-                            <div class="btn plus bg-light  text-center align-self-center" style="font-size: 18px; width:35px" >+</div>
+                            <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty[]" value="{{$c->quantity}}">
+                            <div class="btn plus bg-light text-center align-self-center" style="font-size: 18px; width:35px">+</div>
                         </div>
                     </div>
                     
@@ -116,21 +114,15 @@
 </div>
 
 <script>
-    const plus = document.querySelector(".plus"),
-        minus = document.querySelector(".minus"),
-        num = document.querySelector(".num");
-
-    let a = num.value;
-    plus.addEventListener("click", () => {
-        a++;
-        num.value = a;
-    })
-
-    minus.addEventListener("click", () => {
-        if (a > 1) {
-            a--;
-            num.value = a;
+    $('.plus').click(function () {
+		if ($(this).prev().val() < 20) {
+    	    $(this).prev().val(+$(this).prev().val() + 1);
+	    }
+    });
+    $('.minus').click(function () {
+        if ($(this).next().val() > 1) {
+            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
         }
-    })
+    });
 </script>
 @endsection

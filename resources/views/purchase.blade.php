@@ -10,52 +10,57 @@
         <div class="my-5 d-flex flex-row justify-content-between">
             
             <div class="col-7" >
-               
+               @foreach($carts as $c)
                 <div class="d-flex flex-row">
                     <div style="">
-                        <img src="/asset/nusapenida.jpg" width="200px" height="200px" style="object-fit: cover;">
+                        @foreach($c->tour->tourPlace as $tp)
+                            <img src="{{ asset('storage/images/'.$tp->place->place_image) }}" width="200px" height="200px" style="object-fit: cover;">
+                            @break
+                        @endforeach
                     </div>
-                    <div class="ms-4 my-3 d-flex flex-row justify-content-between align-items-end" >
+                    <div class="ms-4 my-3 d-flex flex-row justify-content-between align-items-end w-100" >
                         <div>
-                            <p  class="mb-2" style="font-size: 18px; font-weight: bold">Nusa Peninda Day Trip All-inclusive</p>
+                            <p  class="mb-2" style="font-size: 18px; font-weight: bold">{{$c->tour->tour_title}}</p>
                             <p class="mb-2">
-                                <i class="bi bi-geo-alt">Bali, Indonesia</i>
+                                <i class="bi bi-geo-alt">{{$c->tour->province->province_name}}, Indonesia</i>
                             </p>
+
+                            @php
+                                $count = 1;
+                                $ms = "";
+                            @endphp
                             <div class="d-flex flex-row">
-                                <p class="px-2 py-1 rounded" style="font-size: 13px; width:fit-content; border: solid 1px black">Day Trip</p>
-                                <p class="px-2 py-1 rounded ms-2" style="font-size: 13px; width:fit-content; border: solid 1px black">Beach</p>
-                                <p class="px-2 py-1 rounded ms-2" style="font-size: 13px; width:fit-content; border: solid 1px black">Snorkeling</p>
+                                @foreach($c->tour->tourCategory as $cat)
+                                    @if($count != 1)
+                                        @php
+                                            $count = 1;
+                                            $ms = "ms-2";
+                                        @endphp  
+                                    @endif
+                                    @php
+                                        $count++;
+                                     @endphp
+                                    <p class="px-2 py-1 rounded {{$ms}}"  style="font-size: 13px; width:fit-content; border: solid 1px black">{{$cat->category->category_name}}</p>
+                                @endforeach
                             </div>
-                            <p  class="mb-2 mt-0">Saturday, 4 February 2023</p>
-                            <p  class="m-0" style="font-size: 18px; font-weight: bold; color: #3DA43A">Rp1.500.000,00</p>
+
+                            <p  class="mb-2 mt-0">
+                            @php
+                                echo date_format(date_create($c->tour->start_date),"l, d F Y");
+                            @endphp
+                            </p>
+                            <p  class="m-0" style="font-size: 18px; font-weight: bold; color: #3DA43A">
+                            @php
+                                echo "Rp". number_format($c->tour->price, 2, ",", ".");
+                            @endphp
+                            </p>
                         </div>
-                        <p class="m-0 align-self-end" style="">1 item(s)</p>
+                        <p class="m-0 align-self-end" style="">{{$c->quantity}} item(s)</p>
                     </div>
                 </div>
 
                 <hr class="my-4">
-
-                <div class="d-flex flex-row">
-                    <div style="">
-                        <img src="/asset/nusapenida.jpg" width="200px" height="200px" style="object-fit: cover;">
-                    </div>
-                    <div class="ms-4 my-3 d-flex flex-row justify-content-between align-items-end" >
-                        <div>
-                            <p  class="mb-2" style="font-size: 18px; font-weight: bold">Nusa Peninda Day Trip All-inclusive</p>
-                            <p class="mb-2">
-                                <i class="bi bi-geo-alt">Bali, Indonesia</i>
-                            </p>
-                            <div class="d-flex flex-row">
-                                <p class="px-2 py-1 rounded"  style="font-size: 13px; width:fit-content; border: solid 1px black">Day Trip</p>
-                                <p class="px-2 py-1 rounded ms-2"  style="font-size: 13px; width:fit-content; border: solid 1px black">Beach</p>
-                                <p class="px-2 py-1 rounded ms-2"  style="font-size: 13px; width:fit-content; border: solid 1px black">Snorkeling</p>
-                            </div>
-                            <p  class="mb-2 mt-0">Saturday, 4 February 2023</p>
-                            <p  class="m-0" style="font-size: 18px; font-weight: bold; color: #3DA43A">Rp1.500.000,00</p>
-                        </div>
-                        <p class="m-0 align-self-end" style="">1 item(s)</p>
-                    </div>
-                </div>
+                @endforeach
             </div> 
 
             <div class="col-4">
@@ -76,12 +81,20 @@
                             </div>
                             <div class="d-flex flex-row justify-content-between mb-1" >
                                 <p class="m-0">Subtotal</p>
-                                <p class="m-0">Rp3.000.000,00</p>
+                                <p class="m-0">
+                                @php
+                                    echo "Rp". number_format($params['transaction_details']['gross_amount'], 2, ",", ".");
+                                @endphp
+                                </p>
                             </div>
                             
                             <div class="d-flex flex-row justify-content-between" style="font-size: 16px; font-weight: bold">
                                 <p>Total</p>
-                                <p>Rp3.000.000,00</p>
+                                <p>
+                                @php
+                                    echo "Rp". number_format($params['transaction_details']['gross_amount'], 2, ",", ".");
+                                @endphp
+                                </p>
                             </div>
                             
                             <p class="mb-3" style="font-size: 12px">Please recheck your order</p>
