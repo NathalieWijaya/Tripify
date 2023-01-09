@@ -58,14 +58,14 @@ Route::get('/payment', function () {
 
 
 
-Route::get('/addTour', [TourController::class, 'showProvince']);
-Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
-Route::post('/addTour', [TourController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addDestination', [DestinationController::class, 'showProvince']);
     Route::post('/addDestination', [DestinationController::class, 'store']);
+    Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
+    Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
+    Route::post('/addTour', [TourController::class, 'store']);
 });
 
 
