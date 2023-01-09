@@ -51,8 +51,8 @@ Auth::routes(['verify' => true]);
 //     return view('home');
 // });
 
-Route::get('/adminInbox', function () {
-    return view('adminInbox');
+Route::get('/payment', function () {
+    return view('paymentHistory');
 });
 
 
@@ -69,15 +69,16 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 });
 
 
-Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
+Route::get('/inbox/{id}', [InboxController::class, 'toInbox'])->middleware('auth');
 
-Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
+Route::post('/inbox/{id}/filter', [InboxController::class, 'filter'])->middleware('auth');
 
-Route::get('/cart/{id}', [CartController::class, 'index']);
+Route::group(['middleware' => ['auth', 'user']], function () {
+    Route::get('/cart/{id}', [CartController::class, 'index'])->middleware('user');
+    Route::post('/purchase', [CartController::class, 'getCheckedCart'])->middleware('user');
+    
+});
 
-Route::post('/purchase', [CartController::class, 'getCheckedCart']);
-// Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
-// Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 

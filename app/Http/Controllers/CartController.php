@@ -20,8 +20,6 @@ class CartController extends Controller
     }
     
     public function getCheckedCart(Request $request) {
-
-        //dd($request->all());
         $grossAmount = 0;
 
         foreach($request->checkbox as $c){
@@ -56,7 +54,6 @@ class CartController extends Controller
             }
         }
 
-        // $this->purchase($grossAmount, $itemDetails);
         $trans = Transaction::create([
             'user_id' => '2',
             'total_price' => $grossAmount,
@@ -82,8 +79,8 @@ class CartController extends Controller
                 'gross_amount' => $grossAmount
             ),
 
-            "item_details" => json_decode(json_encode($itemDetails), true),
-                
+            'item_details' => json_decode(json_encode($itemDetails), true),
+            
             'customer_details' => array(
                 'first_name' => $trans->user->name,
                 'email' => $trans->user->email,
@@ -95,8 +92,5 @@ class CartController extends Controller
 
         return view('purchase', compact('snapToken', 'params', 'carts'));
     }
-
-    
-
 
 }

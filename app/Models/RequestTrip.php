@@ -16,6 +16,10 @@ class RequestTrip extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function province(){
+        return $this->belongsTo(Province::class);
+    }
+
     public function requestPlace(){
         return $this->hasMany(RequestPlace::class);
     }

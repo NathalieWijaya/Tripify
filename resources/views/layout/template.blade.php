@@ -16,6 +16,7 @@
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="{{config('midtrans.client_key')}}">
     </script>
+    <title>@yield('title')</title>
 </head>
 <body style="font-family: 'SQ Market Regular'; font-size: 14px;">
     <header>

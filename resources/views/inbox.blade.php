@@ -56,8 +56,26 @@
                 </div>
 
                 <div class="col">
-                    <label class="form-label" name="sender" >Sender</label>
-                    <input type="text" class="form-control" name="email" value="{{$email}}" placeholder="Search sender...">
+                    @if(Auth::user()->is_admin == true)
+                        <label class="form-label" name="sender" >Sender</label>
+                        <input type="text" class="form-control" name="email" value="{{$email}}" placeholder="Search sender...">
+                    @else
+                        <label class="form-label" name="sender" >Destination</label>
+                        <select class="form-select" name="destination">
+                            <option selected value="all">All</option>
+                            @foreach($province as $d)
+                                @php
+                                    $selected = ""
+                                @endphp
+                                @if ($d->id == $selectedDestination)
+                                    @php
+                                        $selected = "selected"
+                                    @endphp
+                                @endif
+                                <option value="{{$d->id}}" {{$selected}}>{{$d->province_name}}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
             </div>
             
@@ -68,45 +86,70 @@
         
         <table class="table mt-4">
             <tr style="background-color: #EFF5EE; color: #1C651A;">
-                <td>Sender</td>
-                <!-- user -->
-                <!-- <td style="width: 30%; ">Request Destination</td>  -->
-                <!-- user end -->
-                <td>Sent date</td>
-                <td>Status</td>
-                <td>Updated at</td>
-                <!-- <td>Note</td> -->
-            </tr>
-
-            @foreach ($inbox as $i)
-            <tr>
-                <td>{{$i->user->email}}</td>
-                <td>{{$i->request_date}}</td>
-                @if($i->status_id == 2)
-                    @php
-                        $color = "green";
-                    @endphp
-                @elseif($i->status_id == 3)
-                    @php
-                        $color = "red";
-                    @endphp
+                @if(Auth::user()->is_admin == true)
+                    <td>Sender</td>
+                    <td>Sent date</td>
+                    <td>Status</td>
+                    <td>Updated at</td>
                 @else
-                    @php
-                        $color = "";
-                    @endphp
+                    <td>Request Destination</td>
+                    <td>Sent date</td>
+                    <td>Status</td>
+                    <td>Updated at</td>
+                    <td>Note</td>
                 @endif
-               
-                <td style="color: {{$color}}">{{$i->status->status_name}}</td>
-                <td>
-                    @if (!$i->approval_time)
-                        -
-                    @else
-                        {{$i->approval_time}}
-                    @endif
-                </td>
             </tr>
-            @endforeach
 
+            @if($inbox)
+
+                @foreach ($inbox as $i)
+                <tr>
+                    @if(Auth::user()->is_admin == true)
+                        <td>{{$i->user->email}}</td>
+                    @else 
+                        <td>{{$i->province->province_name}}</td>
+                    @endif
+
+                    <td>{{$i->request_date}}</td>
+
+                    @if($i->status_id == 2)
+                        @php
+                            $color = "green";
+                        @endphp
+                    @elseif($i->status_id == 3)
+                        @php
+                            $color = "red";
+                        @endphp
+                    @else
+                        @php
+                            $color = "";
+                        @endphp
+                    @endif
+                
+                    <td style="color: {{$color}}">{{$i->status->status_name}}</td>
+                    <td>
+                        @if (!$i->approval_time)
+                            -
+                        @else
+                            {{$i->approval_time}}
+                        @endif
+                    </td>
+                    @if(Auth::user()->is_admin == false)
+                        <td>
+                        @if (!$i->note)
+                            -
+                        @else
+                            {{$i->note}}
+                        @endif
+                        </td>
+                    @endif 
+                </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="5">No inbox</td>
+                </tr>
+            @endif
         </table>
     </div>
 </div>
