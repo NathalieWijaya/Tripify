@@ -34,7 +34,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
 
-    Route::get('/requestTrip/{id}', [ReqTripController::class, 'showProvince']);
+    Route::get('/requestTrip', [ReqTripController::class, 'showProvince']);
     Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
 
@@ -66,6 +66,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
     Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::post('/addTour', [TourController::class, 'store']);
+    Route::get('/editTour/{id}', [TourController::class, 'edit']);
+    Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
+    Route::patch('/editTour/{id}', [TourController::class, 'update']);
 });
 
 
