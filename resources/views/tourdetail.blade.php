@@ -168,28 +168,30 @@
 
 <div class="detail container">
     <div style="padding: 15px;">
+        <?php $province = App\Models\Province::find($tours->province_id); ?>
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" style="text-decoration: none;color: #000;font-weight: bold;">Bali</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Bali Snorkeling Tour at Blue Lagoon</li>
+                <li class="breadcrumb-item"><a href="#" style="text-decoration: none;color: #000;font-weight: bold;"> {{$province->province_name}}, Bali</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{$tours->tour_title}}</li>
             </ol>
         </nav>
 
         <div class="block w-full bg-white rounded-lg shadow-md mt-4">
             <div class="row flex">
                 <div class="col-sm-6">
-                    <img class="featured" id="featured" src="{{ asset('images/slider1.jpg') }}" alt="">
+                    <?php $place = App\Models\Place::find($tours->province_id); ?>
+                    <img class="featured" id="featured" src="{{ asset('storage/images/'.$place->place_image) }}" alt="">
 
                     <div id="slide-wrapper">
                         <i id="slideLeft" class="arrow fa-solid fa-chevron-left" style="font-size: 20px;"></i>
-
+                    
                         <div id="slider">
-                            <img id="thumbnail" src="{{ asset('images/slider2.jpg') }}" alt="" class="thumbnail active">
-                            <img id="thumbnail" src="{{ asset('images/slider3.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/jungleswing.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/nusapenida.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/instagramtour.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/image-spinx.jpg') }}" alt="" class="thumbnail">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" alt="" class="thumbnail active">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" class="thumbnail">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" alt="" class="thumbnail">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" alt="" class="thumbnail">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" alt="" class="thumbnail">
+                            <img id="thumbnail" src="{{ asset('storage/images/'.$place->place_image) }}" alt="" class="thumbnail">
                         </div>
 
                         <i id="slideRight" class="arrow fa-solid fa-chevron-right" style="font-size: 20px;"></i>
@@ -198,65 +200,50 @@
 
                 </div>
                 <div class="col-sm-6">
-                    <h1 style="color: #3DA43A; font-family: 'Comfortaa'; font-weight: 500; font-size: 30px;">Bali Snorkeling Tour at Blue Lagoon Beach</h1>
-                    <p class="truncate" style="font-weight: 500;font-size: 20px;">$1,500,000.00</p>
-                    <div class="wrapper">
-                        <span class="minus" style="margin-right: 10px;">-</span>
-                        <span class="num">1</span>
-                        <span class="plus" style="margin-left: 10px;">+</span>
-                    </div>
-                    <div style="margin-top: 25px;">
-                        <button class="btn btn-cart" style="margin-right: 10px;">Add to Cart</button>
-                        <button class="btn btn-purchase">Pay</button>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Day Trip</a>
+                    <h1 style="color: #3DA43A; font-family: 'Comfortaa'; font-weight: 500; font-size: 30px;">{{$tours->tour_title}}/h1>
+                        <p class="truncate" style="font-weight: 500;font-size: 20px;">{{$tours->price}}</p>
+                        <div class="wrapper">
+                            <span class="minus" style="margin-right: 10px;">-</span>
+                            <span class="num">1</span>
+                            <span class="plus" style="margin-left: 10px;">+</span>
                         </div>
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Beach</a>
+                        <div style="margin-top: 25px;">
+                            <button class="btn btn-cart" style="margin-right: 10px;">Add to Cart</button>
+                            <button class="btn btn-purchase">Pay</button>
                         </div>
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-bottom: 25px;">Snorkeling</a>
+                        <div class="row" style="margin-top: 25px;">
+                            <div class="col-sm-3">
+                                <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Day Trip</a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Beach</a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-bottom: 25px;">Snorkeling</a>
+                            </div>
                         </div>
-                    </div>
-                    <p class="truncate" style="font-weight: bold;font-size: 18px;">Description</p>
-                    <p class="truncate" style="font-weight: 300;font-size: 16px;">Blue Lagoon in Padangbai, east Bali, takes its name
-                        from the turqoise waters that lap at its white sand. But the coral here is home to fascinating creatures from moray eels and clownfish to
-                        colorful but camouflaged scorpionfish.
-                        Experience it, and nearby Tanjung Jepun, on this door-to-door snorkeling tour. It includes gear, a
-                        guide, a traditional "jukung" fishing boat cruise, and a simple set lunch in a waterfront restaurant.</p>
+                        <p class="truncate" style="font-weight: bold;font-size: 18px;">Description</p>
+                        <p class="truncate" style="font-weight: 300;font-size: 16px;"> {{$tours->description}} </p>
                 </div>
             </div>
             <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:70px;">Highlights</p>
             <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Snorkel two Padangbai sites-Blue Lagoon and Tanjung Jepun-from a boat</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• See more in safety with experienced snorkeling guides</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Relax with private 2-way transfers from most Ubud and South Bali hotels</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Lunch on Indonesian favorites such as "nasi goreng" fried rice</p>
+                <p class="truncate" style="font-weight: 300;font-size: 16px;">• {{$tours->highlights}}</p>
             </div>
 
             <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">What's included</p>
             <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Private Comfortable Air-conditioned car</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Boat transfer to 2 spots of snorkeling</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• All snorkeling equipment</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• A set menu lunch</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Shower facilities and changing room</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Free Wi-Fi</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Insurance</p>
+                <p class="truncate" style="font-weight: 300;font-size: 16px;">• {{$tours->included}}</p>
             </div>
 
             <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">What's not included</p>
             <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Swimwear</p>
+                <p class="truncate" style="font-weight: 300;font-size: 16px;">• {{$tours->not_included}}</p>
             </div>
 
             <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">Itinerary</p>
             <div style="padding-left: 30px;margin-bottom:50px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Snorkeling at Blue Lagoon (09:00-11:00)</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Lunch traditional Indonesian lunch (11:00-12:00)</p>
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">• Tanjung Jepun beach (13:00-15:00)</p>
+                <p class="truncate" style="font-weight: 300;font-size: 16px;">• {{$tours->itinerary}}</p>
             </div>
 
         </div>
