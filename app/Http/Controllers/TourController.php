@@ -75,8 +75,8 @@ class TourController extends Controller
     {
         $rules = [
             'title' => 'required|min:5',
-            'province_id' => '',
-            'place_id' => '',
+            'province' => 'required',
+            'place' => 'required',
             'price' => 'required|numeric',
             'start_date' => 'required',
             'end_date' => 'required|after_or_equal:start_date',
@@ -167,8 +167,8 @@ class TourController extends Controller
     {
         $rules = [
             'title' => 'required|min:5',
-            'province_id' => '',
-            'place_id' => '',
+            'province' => 'required',
+            'place' => 'required',
             'price' => 'required|numeric',
             'start_date' => 'required',
             'end_date' => 'required|after_or_equal:start_date',
