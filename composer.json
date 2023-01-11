@@ -13,6 +13,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
+        "livewire/livewire": "^2.10",
         "midtrans/midtrans-php": "^2.5"
     },
     "require-dev": {

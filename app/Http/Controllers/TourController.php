@@ -206,6 +206,14 @@ class TourController extends Controller
                 'category_id' => $categoryid
             ]);
         }
+        DB::table('tour_places')->where('tour_id', $id)->delete();
+        foreach ($request->place as $placeid) {
+            DB::table('tour_places')->insert([
+                'tour_id' => $id,
+                'place_id' => $placeid
+            ]);
+        }
+        
         
 
 

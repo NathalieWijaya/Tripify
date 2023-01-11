@@ -27,9 +27,8 @@
 
 
 
-            <div class="form-floating mb-3 w-100">
+            {{-- <div class="form-floating mb-3 w-100">
                 <select class="form-select form-control" id="province" name="province">
-                    {{-- @foreach($current_tour as $current_province) --}}
 
                     @foreach ($province as $prov )
                     @php
@@ -42,7 +41,7 @@
                     @endif
                     <option {{ $selected_province }} value="{{ $prov->id }}">{{ $prov->province_name }}</option>
                     @endforeach
-                    {{-- @endforeach --}}
+                    
                 </select>
                 <label for="province">Choose Province Destination</label>
             </div>
@@ -52,7 +51,31 @@
                 <label for="place">Choose Place Destination</label>
                 <select multiple class="form-select form-control" id="place" name="place[]">
                 </select>
-            </div>
+            </div> --}}
+            {{-- @if($current_tour->tour_title)
+            @foreach($current_tour_place as $current_place)
+            @livewire('province-place', ['selectedPlace' => $current_place->place->id])
+            @endforeach
+            
+            @else
+            @livewire('province-place', ['selectedPlace' => null])
+            @endif --}}
+            @if($current_tour->tour_title)
+            @foreach($current_tour_place as $current_place)
+            {{-- @livewire('province-place', ['selectedPlace' => $current_place->place->id]) --}}
+            @php
+                $current_place_id[] = $current_place->place_id  
+            @endphp
+            @endforeach
+            @livewire('province-place', ['selectedPlace' => $current_place_id ])
+            
+            
+            @else
+            @livewire('province-place', ['selectedPlace' => null])
+            @endif
+
+            {{-- @livewire('province-place', ['selectedPlace' => '1', 'selectedPlace' => '2', 'selectedPlace' => '3']) --}}
+            {{-- @livewire('province-place', ['selectedPlace => null']) --}}
 
             <div class="form-floating w-100">
                 <textarea class="form-control mb-3" id="additional" style="height: 100px" placeholder="Enter Desc" name="description">{{ $current_tour->description }}</textarea>
@@ -160,7 +183,7 @@
 
 </script> --}}
 
-<script>
+{{-- <script>
   $(document).ready(function() { 
       function call_ajax(provinceID){
            if(provinceID){
@@ -189,5 +212,5 @@
       });
       
   });
-</script>
+</script> --}}
 @endsection
