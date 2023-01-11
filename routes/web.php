@@ -1,7 +1,16 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboxController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReqTripController;
+use App\Http\Controllers\TourController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +23,63 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/home', function () {
+    return view('home');
+});
+// Route::get('/home', [HomeController::class, 'index']);
+Auth::routes();
+
+Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
+
+    Route::get('/requestTrip/{id}', [ReqTripController::class, 'showProvince']);
+    Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
+    Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
+    Route::get('/cart/{id}', [CartController::class, 'index']);
+
+    Route::get('/purchase', [TransactionController::class, 'purchase']);
+
+});
+Auth::routes(['verify' => true]);
+
+
+Route::get('/tourdetail/{id}', [TourController::class, 'tourdetail' ]);
+
+
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Route::get('/adminInbox', function () {
     return view('adminInbox');
 });
-Route::get('/requestTrip', function () {
-    return view('requestTrip');
-});
-Route::get('/addDestination', [DestinationController::class, 'showProvince']);
-Route::post('/addDestination', [DestinationController::class, 'store']);
 
-Route::get('/inbox/admin', function () {
-    return view('adminInbox');
+
+
+
+
+
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('/addDestination', [DestinationController::class, 'showProvince']);
+    Route::post('/addDestination', [DestinationController::class, 'store']);
+    Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
+    Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
+    Route::post('/addTour', [TourController::class, 'store']);
 });
 
-Route::get('/inbox/user', function () {
-    return view('userInbox');
-});
 
-Route::get('/purchase', function () {
-    return view('purchase');
+Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
 
-});
+Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
+
+// Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
+// Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
+Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
+
+
