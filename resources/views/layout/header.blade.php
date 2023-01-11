@@ -33,13 +33,30 @@
         @endif
         </div>
     @else
+        
             
         <div class="nav-item dropdown">
+
+
             <div class="navbar-nav align-items-center" style="font-size:20px;">
+                @if(Auth::User()->is_admin)
+                <div aria-labelledby="navbarDropdownAdmin">
+                <button id="navbarDropdownAdmin" class="nav-link ms-3 bg-transparent border-0" style="color: black" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+
+                
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/addDestination">Add New Destination</a></li>
+                    <li><a class="dropdown-item" href="/addTour">Add New Tour</a></li>
+                  </ul>
+                </div>
+                @else
                 <a href="" style="color: black; text-decoration:none"> 
                     <i class="bi bi-cart3"></i>
                 </a>
-            <a id="navbarDropdown" class="nav-link ms-3" style="color: black;" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
+                @endif
+                <a id="navbarDropdown" class="nav-link ms-3" style="color: black;" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
                 {{-- {{ Auth::user()->name }} --}}
                 {{-- <a class="ms-3" href="" style="color: black;">  --}}
                     <i class="bi bi-person-circle"></i>
