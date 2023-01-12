@@ -15,20 +15,20 @@
             </button>
         </div>
 
-        <form class="collapse" id="filter" action="/inbox/1/filter" method="POST" >
+        <form class="collapse" id="filter" action="/inbox/{{Auth::user()->id}}/filter" method="POST" >
             @csrf
             <div class="d-flex flex-row mb-3">
                 <div class=" me-4 col">
                     <label class="form-label">Status</label>
-                    <select class="form-select" name="status">
+                    <select {{$disabled}} class="form-select" name="status">
                         <option selected value="all">All</option>
                         @foreach($status as $s)
                             @php
-                                $selected = ""
+                                $selected = "";
                             @endphp
                             @if ($s->id == $selectedStatus)
                                 @php
-                                    $selected = "selected"
+                                    $selected = "selected";
                                 @endphp
                             @endif
                             <option value="{{$s->id}}" {{$selected}}>{{$s->status_name}}</option>
@@ -38,7 +38,7 @@
 
                 <div class=" me-4 col">
                     <label class="form-label">Sent Date</label>
-                    <select class="form-select" name="send">
+                    <select {{$disabled}} class="form-select" name="send">
                         @if ($selectedSend == "desc")
                             @php
                                 $selectedNew = "selected";
@@ -58,10 +58,10 @@
                 <div class="col">
                     @if(Auth::user()->is_admin == true)
                         <label class="form-label" name="sender" >Sender</label>
-                        <input type="text" class="form-control" name="email" value="{{$email}}" placeholder="Search sender...">
+                        <input {{$disabled}} type="text" class="form-control" name="email" value="{{$email}}" placeholder="Search sender...">
                     @else
                         <label class="form-label" name="sender" >Destination</label>
-                        <select class="form-select" name="destination">
+                        <select {{$disabled}} class="form-select" name="destination">
                             <option selected value="all">All</option>
                             @foreach($province as $d)
                                 @php
@@ -80,7 +80,7 @@
             </div>
             
             <div class="d-flex justify-content-end">
-                <button class="btn form-control bg-dark text-white" style="width: 100px;" type="submit">Search</button>
+                <button {{$disabled}} class="btn form-control text-white" style="width: 100px; background-color: #3DA43A;" type="submit">Search</button>
             </div>
         </form>
         
@@ -100,7 +100,7 @@
                 @endif
             </tr>
 
-            @if($inbox)
+            @if(count($inbox) > 0)
 
                 @foreach ($inbox as $i)
                 <tr>
@@ -147,7 +147,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="5">No inbox</td>
+                    <td colspan="5">There's nothing here</td>
                 </tr>
             @endif
         </table>

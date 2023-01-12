@@ -26,8 +26,12 @@ class InboxController extends Controller
         $selectedStatus = null;
         $selectedSend = null;
         $selectedDestination = null;
+        $disabled = "";
+        if(count($inbox) == 0){
+            $disabled = "disabled";
+        }
 
-        return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination'));
+        return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
     }
 
     public function filter(Request $request){
@@ -35,6 +39,7 @@ class InboxController extends Controller
         $selectedStatus = $request->status;
         $selectedSend = $request->send;
         $selectedDestination = $request->destination;
+        $disabled = "";
 
         $inbox = RequestTrip::select()
             ->join('users', 'user_id', '=', 'users.id')
@@ -56,7 +61,7 @@ class InboxController extends Controller
         
         $status = Status::all();
         $province = Province::all();
-        return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination'));
+        return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
     }
 
 }

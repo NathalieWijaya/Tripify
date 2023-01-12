@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -21,6 +25,11 @@ class TransactionController extends Controller
             if($request->transaction_status == "capture"){
                 $trans = Transaction::find($request->order_id);
                 $trans->update(['status' => 'Paid']);
+
+                $trans = Transaction::find($request->order_id);
+                foreach($trans->transactionDetail as $d){
+                    Cart::where('tour_id', $d->tour_id)->where('user_id', $trans->user_id)->delete();
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ use App\Models\Province;
 use App\Models\Tour;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Midtrans\Config;
 use Midtrans\Snap;
@@ -21,7 +22,7 @@ class CartController extends Controller
     
     public function getCheckedCart(Request $request) {
         $grossAmount = 0;
-
+        
         foreach($request->checkbox as $c){
             
             $id = $request->id;
@@ -36,7 +37,6 @@ class CartController extends Controller
                     $price = $tour->price;
 
                     $qty = $request->qty[$i];
-
                     $grossAmount += ($price * $qty);
 
                     $item = new stdClass();
@@ -49,6 +49,7 @@ class CartController extends Controller
 
                     $itemDetails[] = $item;
 
+                    $cart->qtyBuy = $qty;
                     $carts[] = $cart;
                 } 
             }
@@ -59,6 +60,7 @@ class CartController extends Controller
             'total_price' => $grossAmount,
             'status' => 'Unpaid'
         ]);
+       
 
         foreach($itemDetails as $i){
             DB::table('transaction_details')->insert([
@@ -91,6 +93,15 @@ class CartController extends Controller
         $snapToken = Snap::getSnapToken($params);
 
         return view('purchase', compact('snapToken', 'params', 'carts'));
+    }
+
+    public function delete($id){
+        dd($id);
+        $del = Cart::find($id);
+        $del->delete();
+
+        $user = Auth::user()->id;
+        return redirect("/");
     }
 
 }

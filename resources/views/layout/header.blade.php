@@ -5,7 +5,7 @@
         <div class="navbar-nav">
             <a class="nav-link mx-2 text-black" href="/">Home</a>
             <a class="nav-link mx-2 text-black" href="#">Tour</a>
-            <a class="nav-link mx-2 text-black" href="#">Request Trip</a>
+            <a class="nav-link mx-2 text-black" href="/requestTrip">Request Trip</a>
             <a class="nav-link mx-2 text-black" href="#">Guide</a>
             <a class="nav-link mx-3 text-black" href="#">About Us</a>
         </div>
@@ -28,14 +28,24 @@
             
         <div class="nav-item dropdown">
             <div class="navbar-nav align-items-center" style="font-size:20px;">
+                @if(Auth::user()->is_admin == false)
                 <a href="/cart/{{Auth::user()->id}}" style="color: black; text-decoration:none"> 
                     <i class="bi bi-cart3"></i>
                 </a>
+                @endif
                 <a id="navbarDropdown" class="nav-link ms-3" style="color: black;" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
                     <i class="bi bi-person-circle"></i>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/inbox/{{Auth::user()->id}}">
+                        Inbox
+                    </a>
+                    <hr class="dropdown-divider">
+                    <a class="dropdown-item" href="/payment/{{Auth::user()->id}}" >
+                        Payment History
+                    </a>
+                    <hr class="dropdown-divider">
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
@@ -43,6 +53,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+                    
                 </div>
             </div>
         </div>

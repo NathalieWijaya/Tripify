@@ -55,7 +55,7 @@
                             @endphp
                             </p>
                         </div>
-                        <p class="m-0 align-self-end" style="">{{$c->quantity}} item(s)</p>
+                        <p class="m-0 align-self-end" style="">{{$c->qtyBuy}} item(s)</p>
                     </div>
                 </div>
 
@@ -115,15 +115,13 @@
 
     window.snap.pay('{{$snapToken}}', {
         onSuccess: function(result){  
-            alert("payment success!"); console.log(result);
-            window.location = 'http://127.0.0.1:8000/';
+             window.location = 'http://127.0.0.1:8000/payment/{{Auth::user()->id}}';
         },
         onPending: function(result){
             alert("Wating your payment!"); 
-            console.log(result);
         },
         onError: function(result){
-            alert("Payment failed!"); console.log(result);
+            alert("Payment failed!"); 
         },
         onClose: function(){
             alert('You closed the popup without finishing the payment');
