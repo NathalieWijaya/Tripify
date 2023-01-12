@@ -30,6 +30,9 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+Route::get('/about', function () {
+    return view('aboutUs');
+});
 // Route::get('/home', [HomeController::class, 'index']);
 Auth::routes();
 
