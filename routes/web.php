@@ -4,14 +4,13 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReqTripController;
-use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\TourController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +45,7 @@ Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
     Route::get('/cart/{id}', [CartController::class, 'index']);
 
     Route::get('/purchase', [TransactionController::class, 'purchase']);
-    
+
 });
 Auth::routes(['verify' => true]);
 
@@ -88,4 +87,28 @@ Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
+Route::get('/', function () {
+    return view('home');
+});
 
+// View All
+Route::get('/tour', [TourController::class, 'index']);
+
+// Filter by Province
+Route::get('/tour-bali', [TourController::class, 'filterBali']);
+Route::get('/tour-jakarta', [TourController::class, 'filterJakarta']);
+Route::get('/tour-yogyakarta', [TourController::class, 'filterYogyakarta']);
+Route::get('/tour-ntt', [TourController::class, 'filterNTT']);
+
+// Filter by Category
+Route::get('/tour-beach', [TourController::class, 'filterBeach']);
+Route::get('/tour-camping', [TourController::class, 'filterCamping']);
+Route::get('/tour-daytrip', [TourController::class, 'filterDayTrip']);
+Route::get('/tour-hiking', [TourController::class, 'filterHiking']);
+Route::get('/tour-island', [TourController::class, 'filterIsland']);
+Route::get('/tour-longtrip', [TourController::class, 'filterLongTrip']);
+Route::get('/tour-mountain', [TourController::class, 'filterMountain']);
+Route::get('/tour-park', [TourController::class, 'filterPark']);
+Route::get('/tour-shorttrip', [TourController::class, 'filterShortTrip']);
+Route::get('/tour-snorkeling', [TourController::class, 'filterSnorkeling']);
+Route::get('/tour-temple', [TourController::class, 'filterTemple']);
