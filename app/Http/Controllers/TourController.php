@@ -122,7 +122,7 @@ class TourController extends Controller
         $tour_category = TourCategory::all()->where('tour_id', $id);
         // dd($prov);
  
-        return view('tourDetail', compact('tours', 'tour_place','first_tour_place','prov','tour_category'));
+        return view('tourdetail', compact('tours', 'tour_place','first_tour_place','prov','tour_category'));
     }
 
     /**
