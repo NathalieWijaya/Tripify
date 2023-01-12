@@ -87,9 +87,7 @@ Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
-Route::get('/', function () {
-    return view('home');
-});
+
 
 // View All
 Route::get('/tour', [TourController::class, 'index']);
