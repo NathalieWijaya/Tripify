@@ -16,6 +16,7 @@
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="{{config('midtrans.client_key')}}">
     </script>
+    @livewireStyles()
 </head>
 <body style="font-family: 'SQ Market Regular'; font-size: 14px;">
     <header>
@@ -27,5 +28,6 @@
     <footer>
         @include('layout/footer')
     </footer>
+    @livewireScripts()
 </body>
 </html>
