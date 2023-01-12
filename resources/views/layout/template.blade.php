@@ -16,17 +16,41 @@
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="{{config('midtrans.client_key')}}">
     </script>
-<<<<<<< HEAD
-    <title>@yield('title')</title>
-=======
     @livewireStyles()
->>>>>>> origin/master
+    <title>@yield('title')</title>
+
 </head>
+<style> 
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+</style>
+
 <body style="font-family: 'SQ Market Regular'; font-size: 14px;">
     <header>
         @include('layout/header')
+
     </header>
-    
+
     @yield('content')
 
     <footer>
