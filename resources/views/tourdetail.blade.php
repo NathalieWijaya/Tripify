@@ -5,25 +5,12 @@
 @section('content')
 
 <style>
-    .detail-container {
-        margin-left: 18rem;
-        margin-right: 18rem;
-    }
-
+  
     #featured {
-        width: 500px;
+        width: 550px;
         height: 300px;
         object-fit: cover;
         cursor: pointer;
-    }
-
-    #thumbnail {
-        object-fit: cover;
-        max-width: 100px;
-        max-height: 100px;
-        cursor: pointer;
-        opacity: 0.5;
-        margin: 5px;
     }
 
     #thumbnail {
@@ -118,7 +105,7 @@
         background-color: #e5e5e5;
     }
 
-    .btn-purchase {
+    /* .btn-purchase {
         background-color: #00fd7c;
         color: #fff;
         padding-left: 20px;
@@ -130,7 +117,7 @@
         color: #fff;
         padding-left: 20px;
         padding-right: 20px;
-    }
+    } */
 
     .btn-cart {
         background-color: #d5d5d5;
@@ -166,90 +153,81 @@
     }
 </style>
 
-<div class="detail container">
-    <div style="padding: 15px;">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#" style="text-decoration: none;color: #000;font-weight: bold;">Bali</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $tours->tour_title }}</li>
-            </ol>
-        </nav>
-
-        <div class="block w-full bg-white rounded-lg shadow-md mt-4">
-            <div class="row flex">
-                <div class="col-sm-6">
-                    <img class="featured" id="featured" src="{{ asset('images/slider1.jpg') }}" alt="">
+<div class="detail container mb-5 mt-4" style="width: 80%;">
+    <div style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#" style="color: black; text-decoration: none">{{ $prov->province_name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $tours->tour_title }}</li>
+        </ol>
+    </div>
+        <div class="d-flex flex-row">
+        <div class="block w-full bg-white rounded-lg shadow-md">
+            {{-- <div class="d-flex flex"> --}}
+                <div class="col">
+                    <img class="featured" id="featured" src="{{ asset('storage/images/'. $first_tour_place->place->place_image) }}" alt="">
 
                     <div id="slide-wrapper">
                         <i id="slideLeft" class="arrow fa-solid fa-chevron-left" style="font-size: 20px;"></i>
 
                         <div id="slider">
-                            <img id="thumbnail" src="{{ asset('images/slider2.jpg') }}" alt="" class="thumbnail active">
-                            <img id="thumbnail" src="{{ asset('images/slider3.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/jungleswing.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/nusapenida.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/instagramtour.jpg') }}" alt="" class="thumbnail">
-                            <img id="thumbnail" src="{{ asset('images/image-spinx.jpg') }}" alt="" class="thumbnail">
+                            @foreach($tour_place as $tour)
+                                <img id="thumbnail" src="{{ asset('storage/images/'. $tour->place->place_image) }}" alt="" class="thumbnail active">
+                            @endforeach
                         </div>
-
                         <i id="slideRight" class="arrow fa-solid fa-chevron-right" style="font-size: 20px;"></i>
-
                     </div>
-
                 </div>
-                <div class="col-sm-6">
-                    <h1 style="color: #3DA43A; font-family: 'Comfortaa'; font-weight: 500; font-size: 30px;">{{ $tours->tour_title }}</h1>
-                    <p class="truncate" style="font-weight: 500;font-size: 20px;">IDR {{ $tours->price }}</p>
-                    <div class="wrapper">
-                        <span class="minus" style="margin-right: 10px;">-</span>
-                        <span class="num">1</span>
-                        <span class="plus" style="margin-left: 10px;">+</span>
-                    </div>
-                    <div style="margin-top: 25px;">
-                        <button class="btn btn-cart" style="margin-right: 10px;">Add to Cart</button>
-                        <button class="btn btn-purchase">Pay</button>
-                    </div>
-                    <div class="row" style="margin-top: 25px;">
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Day Trip</a>
-                        </div>
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-right: 5px;">Beach</a>
-                        </div>
-                        <div class="col-sm-3">
-                            <a role="button" class="btn-cat" style="cursor: default;font-weight: bold;margin-bottom: 25px;">Snorkeling</a>
-                        </div>
-                    </div>
-                    <p class="truncate" style="font-weight: bold;font-size: 18px;">Description</p>
-                    <p class="truncate" style="font-weight: 300;font-size: 16px;">{{$tours->description}}</p>
+            {{-- </div> --}}
+        </div>
+            <div class="d-flex flex-column ms-5">
+                <h1 style="color: #3DA43A; font-family: 'Comfortaa'; font-weight: 500; font-size: 35px;">{{ $tours->tour_title }}</h1>
+                <p class="truncate" style="font-weight: 500;font-size: 25px;">IDR {{ $tours->price }}</p>
+                <div class="wrapper">
+                    <span class="minus" style="margin-right: 10px;">-</span>
+                    <span class="num">1</span>
+                    <span class="plus" style="margin-left: 10px;">+</span>
+                </div>
+                <div class="mt-4">
+                    <button class="btn text-white me-2" type="button" style="background-color: grey">Add to Cart</button>
+                    <button class="btn text-white ms-2" type="button" style="background-color: #3DA43A;">Purchase</button>
+                </div>
+                <div class="d-flex flex-row mt-3 mb-5">
+                    @foreach($tour_category as $cate)
+                        <a role="button" class="btn-cat me-2" style="cursor: default;font-weight: bold;">{{ $cate->category->category_name }}</a>
+                        @endforeach
                 </div>
             </div>
-            <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:70px;">Highlights</p>
-            <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">{{ $tours->highlights }}</p>
+        </div>
+            
+            <div class="my-5">
+            <p class="truncate" style="font-weight: bold;font-size: 18px;">Description</p>
+            <p class="truncate ms-4" style="font-weight: 300; font-size: 16px;">{{$tours->description}}</p>
             </div>
 
-            <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">What's included</p>
-            <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">{{ $tours->include }}</p>
+            <div class="my-5">
+                <p class="truncate" style="font-weight: bold;font-size: 18px;">Highlights</p>
+                <p class="truncate ms-4" style="font-weight: 300;font-size: 16px;">@php echo nl2br($tours->highlights) @endphp</p>
+            </div>
+
+            <div class="my-5">
+                <p class="truncate" style="font-weight: bold;font-size: 18px;">What's included</p>
+                <p class="truncate ms-4" style="font-weight: 300;font-size: 16px;">@php echo nl2br($tours->include) @endphp</p>
             </div>
 
             @if($tours->not_include)
                 
-            <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">What's not included</p>
-            <div style="padding-left: 30px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">{{ $tours->not_include }}</p>
+            <div class="my-5">
+                <p class="truncate" style="font-weight: bold;font-size: 18px;">What's not included</p>
+                <p class="truncate ms-4" style="font-weight: 300;font-size: 16px;">@php echo nl2br($tours->not_include) @endphp</p>
             </div>
             @endif
 
-            <p class="truncate" style="font-weight: bold;font-size: 18px;margin-top:50px;">Itinerary</p>
-            <div style="padding-left: 30px;margin-bottom:50px;">
-                <p class="truncate" style="font-weight: 300;font-size: 16px;">{{ $tours->itinerary }}</p>
+            <div class="my-5">
+                <p class="truncate" style="font-weight: bold;font-size: 18px">Itinerary</p>
+                <p class="truncate ms-4" style="font-weight: 300;font-size: 16px;">@php echo nl2br($tours->itinerary) @endphp</p>
             </div>
 
         </div>
-    </div>
-
 </div>
 
 <script>
