@@ -135,7 +135,11 @@ class TourController extends Controller
      */
     public function show($id)
     {
+        $tours = Tour::find($id);
+        $tour_place = TourPlace::all()->where('tour_id', $id);
         
+
+        return view('tourDetail', compact('tours', 'tour_place'));
     }
 
     /**

@@ -33,6 +33,7 @@ Route::get('/home', function () {
 Route::get('/about', function () {
     return view('aboutUs');
 });
+Route::get('/tourDetail/{id}', [TourController::class, 'show']);
 // Route::get('/home', [HomeController::class, 'index']);
 Auth::routes();
 
