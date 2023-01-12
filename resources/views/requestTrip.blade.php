@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form class="d-flex flex-column justify-content-center align-items-center my-5" method="POST">
+<form class="d-flex flex-column justify-content-center align-items-center my-5" method="POST" action="/requestTrip/{{ Auth::user()->id }}">
   @csrf
   @if ($errors->any())
   <p class="text-danger">{{ $errors->first() }}</p>

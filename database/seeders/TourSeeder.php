@@ -22,9 +22,19 @@ class TourSeeder extends Seeder
             'end_date' => '2023-09-10',
             'max_slot' => 50,
             'price' => '850000',
-            'highlights' => 'Wisata Kebudayaan\nBermain Games\nMencoba Wahana Permainan di Taman Mini',
-            'include' => 'Tiket Masuk\nMakan Pagi\nMakan Siang\nMakan Malam\nSouvenir',
-            'itinerary' => 'Wisata Kebudayaan(08.00-10.00)\nBermain Games(10.00-12.00)\nMakan Siang(12.00-14.00)\nWahana Permainan(14.00-17.00)\nMakan Malam(17.00-19.00)',
+            'highlights' => 'Wisata Kebudayaan
+Bermain Games
+Mencoba Wahana Permainan di Taman Mini',
+            'include' => 'Tiket Masuk
+Makan Pagi
+Makan Siang
+Makan Malam
+Souvenir',
+            'itinerary' => 'Wisata Kebudayaan(08.00-10.00)
+Bermain Games(10.00-12.00)
+Makan Siang(12.00-14.00)
+Wahana Permainan(14.00-17.00)
+Makan Malam(17.00-19.00)',
             'is_public' => true
         ]);
         DB::table('tours')->insert([
@@ -35,9 +45,25 @@ class TourSeeder extends Seeder
             'end_date' => '2023-09-12',
             'max_slot' => '20',
             'price' => '1500000',
-            'highlights' => 'Mengunjungi Keraton Yogyakarta\nMengunjungi Candi Prambanan\nMengunjungi Tuju Jogja\nMengunjungi Jalan Malioboro ',
-            'include' => '3-star Hotel\nMakan Pagi\nMakan Siang\nMakan Malam\nSouvenir',
-            'itinerary' => 'Hari Pertama:\nMengunjungi Keraton Yogyakarta(08.00-12.00)\nMakan Siang(12.00-14.00)\nWMengunjungi Jalan Malioboro(14.00-18.00)\nMakan Malam(18.00-20.00)\nHari Kedua:\nMengunjungi Candi Prambanan(08.00-12.00)\nMakan Siang(12.00-14.00)\nWMengunjungi Tugu Jogja(14.00-17.00)\nMakan Malam(17.00-19.00)\n',
+            'highlights' => 'Mengunjungi Keraton Yogyakarta
+Mengunjungi Candi Prambanan
+Mengunjungi Tuju Jogja
+Mengunjungi Jalan Malioboro ',
+            'include' => '3-star Hotel
+Makan Pagi
+Makan Siang
+Makan Malam
+Souvenir',
+            'itinerary' => 'Hari Pertama:
+Mengunjungi Keraton Yogyakarta(08.00-12.00)
+Makan Siang(12.00-14.00)
+WMengunjungi Jalan Malioboro(14.00-18.00)
+Makan Malam(18.00-20.00)
+Hari Kedua:
+Mengunjungi Candi Prambanan(08.00-12.00)
+Makan Siang(12.00-14.00)
+Mengunjungi Tugu Jogja(14.00-17.00)
+Makan Malam(17.00-19.00)',
             'is_public' => true
         ]);
         DB::table('tours')->insert([
@@ -48,9 +74,15 @@ class TourSeeder extends Seeder
             'end_date' => '2023-09-13',
             'max_slot' => '100',
             'price' => '600000',
-            'highlights' => 'Mengunjungi Candi Prambanan\nMengunjungi Jalan Malioboro ',
-            'include' => 'Makan Siang\nMakan Malam\nSouvenir',
-            'itinerary' => 'Mengunjungi Candi Prambanan(08.00-12.00)\nMakan Siang(12.00-14.00)\nMengunjungi Jalan Malioboro(14.00-17.00)\nMakan Malam(17.00-19.00)',
+            'highlights' => 'Mengunjungi Candi Prambanan
+Mengunjungi Jalan Malioboro',
+            'include' => 'Makan Siang
+Makan Malam
+Souvenir',
+            'itinerary' => 'Mengunjungi Candi Prambanan(08.00-12.00)
+Makan Siang(12.00-14.00)
+Mengunjungi Jalan Malioboro(14.00-17.00)
+Makan Malam(17.00-19.00)',
             'is_public' => true
         ]);
     }
