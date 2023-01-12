@@ -32,6 +32,7 @@ Route::get('/home', function () {
 Route::get('/about', function () {
     return view('aboutUs');
 });
+Route::get('/tourDetail/{id}', [TourController::class, 'show']);
 // Route::get('/home', [HomeController::class, 'index']);
 Auth::routes();
 
@@ -86,9 +87,7 @@ Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 
-Route::get('/', function () {
-    return view('home');
-});
+
 
 // View All
 Route::get('/tour', [TourController::class, 'index']);

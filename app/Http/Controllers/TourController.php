@@ -107,6 +107,27 @@ class TourController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $tours = Tour::find($id);
+        $tour_place = TourPlace::all()->where('tour_id', $id);
+        
+
+        return view('tourDetail', compact('tours', 'tour_place'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $current_tour = Tour::find($id);
