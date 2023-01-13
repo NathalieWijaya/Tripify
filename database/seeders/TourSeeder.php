@@ -85,5 +85,58 @@ Mengunjungi Jalan Malioboro(14.00-17.00)
 Makan Malam(17.00-19.00)',
             'is_public' => true
         ]);
+
+        DB::table('tours')->insert([
+            'province_id' => '4',
+            'tour_title' => 'Nusa Tenggara Timur Trip 2 hari 1 malam',
+            'description' => '2 hari 1 malam mengunjungi destinasi wisata di Nusa Tenggara Timur',
+            'start_date' => '2023-05-20',
+            'end_date' => '2023-05-21',
+            'max_slot' => '40',
+            'price' => '1500000',
+            'highlights' => 'Mengunjungi Pantai Pink
+            Mengunjungi Labuan Bajo
+            Mengunjungi Pulau Komodo',
+            'include' => '3-Star Hotel
+            Kendaraan
+            Makan Pagi
+            Makan Siang
+            Makan Malam
+            Souvenir
+            Tiket Masuk',
+            'not_include' => 'Uang Saku',
+            'itinerary' => 'Hari Pertama:
+            Mengunjungi Pantai Pink (08-00 - 11.00)
+            Makan Siang (11.00-14.00)
+            Mengunjungi Labuan Bajo (14.00-19.00)
+            Makan Malam (19.00-21.00)
+            Hari Kedua:
+            Sarapan (06.00 - 08.00)
+            Mengunjungi Pulau Komodo (08.00-16.00)
+            Makan Malam (16.00-18.00)',
+            'is_public' => true
+        ]);
+        DB::table('tours')->insert([
+            'province_id' => '2',
+            'tour_title' => 'Bali Day Trip',
+            'description' => 'Bali Day Trip mengunjungi Pantai Kuta dan Garuda Wisnu Kencana',
+            'start_date' => '2023-08-10',
+            'end_date' => '2023-08-10',
+            'max_slot' => '50',
+            'price' => '500000',
+            'highlights' => 'Mengunjungi Pantai Kuta
+            Mengunjungi Garuda Wisnu Kencana',
+            'include' => 'Kendaraan
+            Makan Siang
+            Makan Malam
+            Souvenir
+            Tiket Masuk',
+            'not_include' => 'Surf Board',
+            'itinerary' => 'Mengunjungi Garuda Wisnu Kencana (08-00 - 12.00)
+            Makan Siang (12.00-14.00)
+            Mengunjungi Pantai Kuta (14.00-17.00)
+            Makan Malam (17.00-19.00)',
+            'is_public' => true
+        ]);
     }
 }
