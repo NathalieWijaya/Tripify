@@ -96,10 +96,10 @@
                     </div>
 
                     <div class="d-flex flex-column justify-content-between">
-                        <div class="align-self-end">
+                        <div class="align-self-end d-flex flex-row">
+                            <button class="bi bi-trash3 deletebutton me-3" style="background: none; border:none; font-size:22px" id="deletebutton" type="button" value="{{ $c->tour_id }}"></button>
                             <input class="form-check-input" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="flexCheckDefault">
                         </div>
-
                         <div class="d-flex flex-row align-items-center">
                             <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
                             <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" value="1">
@@ -114,6 +114,7 @@
         </form>
     </div>
 </div>
+
 
 <script>
     const plus = document.querySelector(".plus"),
@@ -133,4 +134,27 @@
         }
     })
 </script>
+<script>
+    $('.deletebutton').on('click',function(){
+        var tourid = $(this).val();
+        $.ajax({
+            type: "post",
+            data: {_method: 'DELETE', _token: "{{ csrf_token() }}"},
+            url: "/cart/delete/" + tourid,
+             success: function (html) {
+                location.reload();
+             }
+        })
+    })
+</script>
+{{-- <script>
+$('.delete-btn').on('click', function(){
+    var recordID = $(this).data('recordid');
+    var token = $(this).data('token');
+    $.ajax({
+        type: 'post',
+        data: {_method: 'delete', _token :token},
+        url: "/cart/delete/" + recordID
+    })    }); 
+</script> --}}
 @endsection
