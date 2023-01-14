@@ -32,6 +32,9 @@ Route::get('/home', function () {
 Route::get('/about', function () {
     return view('aboutUs');
 });
+Route::get('/guide', function () {
+    return view('guide');
+});
 Route::get('/tourDetail/{id}', [TourController::class, 'show']);
 // Route::get('/home', [HomeController::class, 'index']);
 Auth::routes();
@@ -43,6 +46,7 @@ Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
+    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy']);
 
     Route::get('/purchase', [TransactionController::class, 'purchase']);
 
