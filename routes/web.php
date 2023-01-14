@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\PrivateTourController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReqTripController;
@@ -71,6 +72,9 @@ Route::get('/adminInbox', function () {
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addDestination', [DestinationController::class, 'showProvince']);
     Route::post('/addDestination', [DestinationController::class, 'store']);
+    Route::get('/addTour/private/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/addTour/private/{id}', [PrivateTourController::class, 'showProvinceAndCategory']);
+    Route::post('/addTour/private/{id}', [PrivateTourController::class, 'store']);
     Route::get('/addTour', [ProvinceController::class, 'showProvince']);
     Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
     Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
@@ -79,6 +83,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
+    
 });
 
 
