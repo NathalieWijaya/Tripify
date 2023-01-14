@@ -102,7 +102,7 @@
                         </div>
                         <div class="d-flex flex-row align-items-center">
                             <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
-                            <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" value="1">
+                            <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" value={{ $c->quantity }}>
                             <div class="btn plus bg-light  text-center align-self-center" style="font-size: 18px; width:35px" >+</div>
                         </div>
                     </div>
@@ -147,14 +147,4 @@
         })
     })
 </script>
-{{-- <script>
-$('.delete-btn').on('click', function(){
-    var recordID = $(this).data('recordid');
-    var token = $(this).data('token');
-    $.ajax({
-        type: 'post',
-        data: {_method: 'delete', _token :token},
-        url: "/cart/delete/" + recordID
-    })    }); 
-</script> --}}
 @endsection
