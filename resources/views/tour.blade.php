@@ -2,42 +2,92 @@
 
 @section('title','Tour')
 
+@section('border', 'border-bottom')
+            
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
+
 @section('content')
-<section class="d-flex justify-content-start" style="margin-left: 150px;margin-top: 20px;margin-bottom: 20px">
-    <div style="font-size: 16px;margin-left: 0px;margin-right: 0px;padding-right: 0px;padding-left: 0px;">
-        <p>BROWSE BY PROVINCE</p>
-        <a class="nav-link text-black" style="margin-bottom: 10px" href="/tour">All Items</a>
-        <a class="nav-link text-black" style="margin-bottom: 10px" href="/tour-bali?tourData=Bali">Bali</a>
-        <a class="nav-link text-black" style="margin-bottom: 10px" href="/tour-yogyakarta?tourData=Daerah Istimewa Yogyakarta">Daerah Istimewa Yogyakarta</a>
-        <a class="nav-link text-black" style="margin-bottom: 10px" href="/tour-ntt?tourData=Nusa Tenggara Timur">Nusa Tenggara Timur</a>
-        <a class="nav-link text-black" style="margin-bottom: 10px" href="/tour-jakarta?tourData=Jakarta">Jakarta</a>
-        <div class="dropdown"><button class="btn btn-primary dropdown-toggle" aria-expanded="true" data-bs-toggle="dropdown" type="button" style="background: #3da43a;border-width: 0px;border-radius: 6px;margin-top: 20px;">Category</button>
-            <div class="dropdown-menu" data-bs-popper="none">
-                <a class="dropdown-item" href="/tour-beach?tourData=Beach">Beach</a>
-                <a class="dropdown-item" href="/tour-camping?tourData=Camping">Camping</a>
-                <a class="dropdown-item" href="/tour-daytrip?tourData=Day Trip">Day Trip</a>
-                <a class="dropdown-item" href="/tour-hiking?tourData=Hiking">Hiking</a>
-                <a class="dropdown-item" href="/tour-island?tourData=Island">Island</a>
-                <a class="dropdown-item" href="/tour-longtrip?tourData=Long Trip">Long Trip</a>
-                <a class="dropdown-item" href="/tour-mountain?tourData=Mountain">Mountain</a>
-                <a class="dropdown-item" href="/tour-park?tourData=Park">Park</a>
-                <a class="dropdown-item" href="/tour-shorttrip?tourData=Short Trip">Short Trip</a>
-                <a class="dropdown-item" href="/tour-snorkeling?tourData=Snorkeling">Snorkeling</a>
-                <a class="dropdown-item" href="/tour-temple?tourData=Temple">Temple</a>
+<div class="d-flex justify-content-center my-5">
+    <div style="width: 80%">
+        <div class="row">
+            <div class="col-3 me-4" style="font-size: 15px;">
+                <p>Browse by Province</p>
+                <a class="nav-link text-black mb-3" href="/tour" style="{{ $selectedProv == 'all' ? 'font-weight: bold' : ''}}">All Items</a>
+                @foreach($province as $p)
+                    <a class="nav-link text-black mb-3" style="{{ $selectedProv == $p->id ? 'font-weight: bold' : ''}}" href="/tour/province/{{$p->id}}">{{$p->province_name}}</a>
+                @endforeach
+
+                
+                <!-- <div class="dropdown">
+                    <button class="btn dropdown-toggle bg-danger" aria-expanded="true" data-bs-toggle="dropdown" type="button">Category</button>
+                    <div class="dropdown-menu" data-bs-popper="none">
+                        @foreach($category as $c)
+                        <option class="dropdown-item" >{{$c->category_name}}</option>
+                        @endforeach
+                    </div>
+                </div> -->
+                <div class="mb-3 mt-4 d-flex flex-row justify-content-between border-top border-bottom" style="border: black">
+                    <button  class="w-100 m-0 border-0 text-start bg-transparent py-2 d-flex justify-content-between flex-row" id="filter-btn" data-bs-toggle="collapse"  data-bs-target="#filter"  >
+                        <div class="left">Filter</div>
+                        <i class="bi bi-chevron-down rotate" ></i>
+                    </button>
+                </div>
+
+                <div class="collapse" id="filter">
+                    <select class="form-select">
+                        <option id="category" selected value="all">All</option>
+                        @foreach($category as $c)
+                            <option id="category" class="dropdown-item" value="{{$c->id}}">{{$c->category_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
-        </div>
-    </div>
-    <div style="margin-left: 100px;padding-right: 0px;margin-right: 0px;">
-        <h1 style="font-size: 30px;color: #3da43a;margin-bottom: 15px;">Shop All</h1>
-        <p style="margin-bottom: 20px;">Results:</p>
-        <div class="d-flex justify-content-start">
-            @foreach ($tourData as $item)
-            <div style="margin-right: 20px;"><img src={{ $item->place_image }} style="width: 240px;height: 240px;margin-right: 0px;" />
-                <p style="margin-top: 10px;">{{ $item->tour_title }}</p>
-                <p>{{ $item->price }}</p>
+            
+            <div class="col">
+                <h3 class="mb-4" style="color: #3da43a; font-family: 'Comfortaa'; font-weight: bold">Shop All</h3>
+                <p class="text-secondary"><strong>{{count($tour)}} Results</strong></p>
+                <div class="row mt-4" style="font-size: 15px;">
+                    @foreach ($tour as $t)
+                    <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                        @foreach ($t->tourPlace as $tp)
+                            <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height=235 width=235 />
+                            @break
+                        @endforeach
+                        <p class="mt-2 mb-2">{{ $t->tour_title }}</p>
+                        <p>
+                        @php
+                            echo "Rp". number_format($t->price, 2, ",", ".");
+                        @endphp
+                        </p>
+                    </a>
+                    @endforeach
+                </div>
             </div>
-            @endforeach
+
         </div>
+
     </div>
-</section>
+</div>
+
+<script>
+    $('#category').on('click', function(){
+        var category_id = $(this).val();
+        $.ajax({
+            type: "post",
+            data: {_method: 'post', _token: "{{csrf_token()}}"}
+            url: "/"
+        })
+    })
+</script>   
+
 @endsection

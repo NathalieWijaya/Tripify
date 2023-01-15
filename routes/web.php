@@ -24,13 +24,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/about', function () {
     return view('aboutUs');
 });
 
-Route::get('/tourDetail/{id}', [TourController::class, 'show']);
+Route::get('/tour/{id}', [TourController::class, 'show']);
+Route::get('/tour', [TourController::class, 'index']);
+Route::get('/tour/province/{id}', [TourController::class, 'filterProvince']);
 
 Auth::routes();
 
@@ -44,8 +46,8 @@ Route::group(['middleware' => ['auth', 'user']], function () {
     Route::post('/purchase', [CartController::class, 'getCheckedCart']);
 
 });
-Auth::routes(['verify' => true]);
 
+Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addDestination', [DestinationController::class, 'showProvince']);
@@ -54,10 +56,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
     Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::post('/addTour', [TourController::class, 'store']);
+
     Route::get('/editTour/{id}', [ProvinceController::class, 'showProvince']);
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
+    
     Route::get('/delete/cart/{id}', [CartController::class, 'delete']);
 });
 
@@ -66,11 +70,5 @@ Route::get('/inbox/{id}', [InboxController::class, 'toInbox'])->middleware('auth
 Route::post('/inbox/{id}/filter', [InboxController::class, 'filter'])->middleware('auth');
 Route::get('/payment/{id}', [PaymentHistoryController::class, 'index'])->middleware('auth');
 
-
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
-
-
-
-// View All
-Route::get('/tour', [TourController::class, 'index']);

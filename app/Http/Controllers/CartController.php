@@ -17,6 +17,7 @@ class CartController extends Controller
 {
     public function index($id){
         $cart = Cart::where('user_id', $id)->get();
+        
         return view('cart', compact('cart'));
     }
     
@@ -93,15 +94,6 @@ class CartController extends Controller
         $snapToken = Snap::getSnapToken($params);
 
         return view('purchase', compact('snapToken', 'params', 'carts'));
-    }
-
-    public function delete($id){
-        dd($id);
-        $del = Cart::find($id);
-        $del->delete();
-
-        $user = Auth::user()->id;
-        return redirect("/");
     }
 
 }

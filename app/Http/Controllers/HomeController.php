@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Province;
 use App\Models\Tour;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class HomeController extends Controller
 {
@@ -20,9 +21,21 @@ class HomeController extends Controller
             ->groupBy('tours.province_id')
             ->orderBy('count', 'desc')
             ->get();
+        $prov = Province::all();
 
-        $province = Province::all();
-
+        if(count($popular) == 0){
+            $province = $prov->take(3);
+        }
+        else {
+            $province[] = null;
+            foreach($popular as $p){
+                foreach($prov as $pro){
+                    if ($p->province_id == $pro->id){
+                        $province[] = $pro;
+                    }
+                }
+            }
+        }
         return view('home', compact('tour', 'popular', 'province'));
     }
 }

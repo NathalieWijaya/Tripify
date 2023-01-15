@@ -4,7 +4,7 @@
         <!-- #3DA43A -->
         <div class="navbar-nav" style="color:black">
             <a class="nav-link mx-2 @yield('navHome') hover-underline-animation" href="/">Home</a>
-            <a class="nav-link mx-2 @yield('navTour') hover-underline-animation" href="#">Tour</a>
+            <a class="nav-link mx-2 @yield('navTour') hover-underline-animation" href="/tour">Tour</a>
             <a class="nav-link mx-2 @yield('navReq') hover-underline-animation" href="/requestTrip">Request Trip</a>
             <a class="nav-link mx-2 @yield('navGuide') hover-underline-animation" href="#">Guide</a>
             <a class="nav-link mx-3 @yield('navAbout') hover-underline-animation" href="/about">About Us</a>

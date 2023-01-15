@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tour;
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,24 @@ class TourController extends Controller
 {
     public function index() {
         $tour = Tour::all();
-        return view('tour', compact('tour'));
+        $province = Province::all();
+        $category = Category::all();
+        $selectedProv = "all";
+        return view('tour', compact('tour', 'province', 'category', 'selectedProv'));
+    }
+
+    public function filterProvince($id){
+        $tour = Tour::where('province_id', $id)->get();
+        $province = Province::all();
+        $category = Category::all();
+        $selectedProv = $id;
+
+        return view('tour', compact('tour', 'province', 'category', 'selectedProv'));
+    }
+
+    public function filterCategory(){
+        $tour = Tour::where();
+
     }
 
     public function showProvinceAndCategory(Request $request)
@@ -100,36 +118,21 @@ class TourController extends Controller
                 'category_id' => $categoryid
             ]);
         }
-
-
-
         return redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $tour = Tour::find($id);
-        // $tour_place = TourPlace::all()->where('tour_id', $id);
-        // $first_tour_place = $tour_place->first();
-        // $prov = Province::all()->where('id', $tours->province_id)->first();
-        // $tour_category = TourCategory::all()->where('tour_id', $id);
-        // dd($prov);
- 
-        return view('tourdetail', compact('tours'));
+        $sold = Transaction::where('status', 'Paid')
+        ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+        ->where('transaction_details.tour_id', $id)
+        ->count();
+
+        $stock = $tour->max_slot - $sold;
+        return view('tourdetail', compact('tour', 'stock'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $current_tour = Tour::find($id);
@@ -137,7 +140,6 @@ class TourController extends Controller
         $current_tour_category = TourCategory::all()->where('tour_id', '=', $id);
         $province = Province::all();
         $category = Category::all();
-
 
         return view('addTour', compact('current_tour', 'current_tour_place', 'current_tour_category','province','category'));
     }
@@ -200,165 +202,7 @@ class TourController extends Controller
 
     }
 
-    public function filterBali(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('provinces', 'places.province_id', '=', 'provinces.id')
-                ->where('province_name', '=', 'Bali')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
 
-    public function filterJakarta(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('provinces', 'places.province_id', '=', 'provinces.id')
-                ->where('province_name', '=', 'Jakarta')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterYogyakarta(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('provinces', 'places.province_id', '=', 'provinces.id')
-                ->where('province_name', '=', 'Daerah Istimewa Yogyakarta')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterNTT(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('provinces', 'places.province_id', '=', 'provinces.id')
-                ->where('province_name', '=', 'Nusa Tenggara Timur')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterBeach(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Beach')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterCamping(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Camping')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterDayTrip(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Day Trip')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterHiking(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Hiking')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterIsland(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Island')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterLongTrip(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Long Trip')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterMountain(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Mountain')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterPark(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Park')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterShortTrip(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Short Trip')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterSnorkeling(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Snorkeling')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
-
-    public function filterTemple(Request $request) {
-        $tourData = $request->query('tourData');
-        $tours = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')
-                ->join('places', 'tour_places.place_id', '=', 'places.id')
-                ->join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')
-                ->join('categories', 'tour_categories.category_id', '=', 'categories.id')
-                ->where('category_name', '=', 'Temple')
-                ->get();
-        return view('tour', compact('tourData'));
-    }
+ 
 
 }

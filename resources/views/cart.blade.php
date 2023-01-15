@@ -95,7 +95,7 @@
                                 </div>
                                 <p  class="mb-2 mt-0">
                                 @php
-                                    echo date_format(date_create($c->tour->start_date),"l, d F Y");
+                                    echo date_format(date_create($c->tour->start_date),"l, d F Y") . " - " . date_format(date_create($c->tour->end_date),"l, d F Y");
                                 @endphp
                                 </p>
                                 <p  class="m-0" style="font-size: 18px; font-weight: bold; color: #3DA43A">

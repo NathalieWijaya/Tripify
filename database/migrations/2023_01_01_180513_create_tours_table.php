@@ -27,7 +27,6 @@ class CreateToursTable extends Migration
             $table->text('not_include')->nullable();
             $table->text('itinerary');
             $table->boolean('is_public')->default(true);
-
         });
     }
 
