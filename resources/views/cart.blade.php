@@ -101,9 +101,9 @@
                             <input class="form-check-input" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="flexCheckDefault">
                         </div>
                         <div class="d-flex flex-row align-items-center">
-                            <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
-                            <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" value={{ $c->quantity }}>
-                            <div class="btn plus bg-light  text-center align-self-center" style="font-size: 18px; width:35px" >+</div>
+                            <div class="btn minus bg-light text-center align-self-center abcd" id="minus" style="font-size: 18px; width:35px">-</div>
+                            <input class="num text-center border-0 mx-2 abcd" id="num" style="font-size: 18px; width: 25px" value="{{ $c->quantity }}">
+                            <div class="btn plus bg-light  text-center align-self-center abcd" id="plus" style="font-size: 18px; width:35px" >+</div>
                         </div>
                     </div>
                     
@@ -126,6 +126,7 @@
         a++;
         num.value = a;
     })
+    
 
     minus.addEventListener("click", () => {
         if (a > 1) {
@@ -134,6 +135,7 @@
         }
     })
 </script>
+
 <script>
     $('.deletebutton').on('click',function(){
         var tourid = $(this).val();
