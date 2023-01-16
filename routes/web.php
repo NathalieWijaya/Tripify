@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentHistoryController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\PrivateTourController;
 use App\Http\Controllers\ProvinceController;
@@ -24,54 +25,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index']);
+
 Route::get('/about', function () {
     return view('aboutUs');
 });
+
+Route::get('/tour/{id}', [TourController::class, 'show']);
+Route::get('/tour', [TourController::class, 'index']);
+Route::get('/tour/province/{id}', [TourController::class, 'filterProvince']);
+Route::get('/tour/sort/{sort}', [TourController::class, 'sort']);
+
 Route::get('/guide', function () {
     return view('guide');
 });
-Route::get('/tourDetail/{id}', [TourController::class, 'show']);
-// Route::get('/home', [HomeController::class, 'index']);
+
 Auth::routes();
 
-Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
+Route::group(['middleware' => ['auth', 'user']], function () {
 
     Route::get('/requestTrip', [ReqTripController::class, 'showProvince']);
     Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
+    Route::post('/cart/add/{tour}/{qty}', [CartController::class, 'store']);
+
+    Route::post('/cart/update/{id}/{qty}', [CartController::class, '']);
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy']);
 
-    Route::get('/purchase', [TransactionController::class, 'purchase']);
+    Route::post('/purchase', [CartController::class, 'getCheckedCart']);
+    Route::post('/tour/purchase', [TourController::class, 'purchase']);
 
 });
+
 Auth::routes(['verify' => true]);
-
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-// Route::get('/', function () {
-//     return view('home');
-// });
-
-Route::get('/adminInbox', function () {
-    return view('adminInbox');
-});
-
-
-
-
-
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addDestination', [DestinationController::class, 'showProvince']);
     Route::post('/addDestination', [DestinationController::class, 'store']);
+
     Route::get('/addTour/private/{id}', [ProvinceController::class, 'showProvince']);
     Route::get('/addTour/private/{id}', [PrivateTourController::class, 'showProvinceAndCategory']);
     Route::post('/addTour/private/{id}', [PrivateTourController::class, 'store']);
@@ -79,43 +72,20 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
     Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::post('/addTour', [TourController::class, 'store']);
+
     Route::get('/editTour/{id}', [ProvinceController::class, 'showProvince']);
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
-    
+
+    // Route::patch('/approve/{id}/{status}/{note}', [InboxController::class, 'approve']);
+
 });
 
 
-Route::get('/inbox/{id}', [InboxController::class, 'toInbox']);
+Route::get('/inbox/{id}', [InboxController::class, 'toInbox'])->middleware('auth');
+Route::post('/inbox/{id}/filter', [InboxController::class, 'filter'])->middleware('auth');
+Route::get('/payment/{id}', [PaymentHistoryController::class, 'index'])->middleware('auth');
 
-Route::post('/inbox/{id}/filter', [InboxController::class, 'filter']);
-
-// Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
-// Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
-
-
-
-// View All
-Route::get('/tour', [TourController::class, 'index']);
-
-// Filter by Province
-Route::get('/tour-bali', [TourController::class, 'filterBali']);
-Route::get('/tour-jakarta', [TourController::class, 'filterJakarta']);
-Route::get('/tour-yogyakarta', [TourController::class, 'filterYogyakarta']);
-Route::get('/tour-ntt', [TourController::class, 'filterNTT']);
-
-// Filter by Category
-Route::get('/tour-beach', [TourController::class, 'filterBeach']);
-Route::get('/tour-camping', [TourController::class, 'filterCamping']);
-Route::get('/tour-daytrip', [TourController::class, 'filterDayTrip']);
-Route::get('/tour-hiking', [TourController::class, 'filterHiking']);
-Route::get('/tour-island', [TourController::class, 'filterIsland']);
-Route::get('/tour-longtrip', [TourController::class, 'filterLongTrip']);
-Route::get('/tour-mountain', [TourController::class, 'filterMountain']);
-Route::get('/tour-park', [TourController::class, 'filterPark']);
-Route::get('/tour-shorttrip', [TourController::class, 'filterShortTrip']);
-Route::get('/tour-snorkeling', [TourController::class, 'filterSnorkeling']);
-Route::get('/tour-temple', [TourController::class, 'filterTemple']);

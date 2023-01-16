@@ -2,6 +2,19 @@
 
 @section('title','Request Trip')
 
+@section('border', 'border-bottom')
+            
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
+
 @section('content')
 
 <form class="d-flex flex-column justify-content-center align-items-center my-5" method="POST" action="/requestTrip/{{ Auth::user()->id }}">

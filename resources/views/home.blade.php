@@ -1,63 +1,82 @@
-@extends('layout/template')
+@extends('layout/templateTrans')
 
 @section('title','Home')
 
+@section('logo', 'white')
+@section('cart', 'white')
+@section('profile', 'white')
+@section('login', 'text-white')
+@section('register', 'text-white')
+
+
+@section('navHome', 'text-white')
+@section('navTour', 'text-white')
+@section('navReq', 'text-white')
+@section('navGuide', 'text-white')
+@section('navAbout', 'text-white')
+
 @section('content')
 
-@if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    {{-- {{ __('You are logged in!') }} --}}
-<section>
-    <div class="card" style="border-radius: 0px;border-width: 0px;"><img class="card-img w-100 d-block" src={{ asset('/storage/images/background.jpg') }} width="1193" height="638" style="filter: brightness(60%);border-radius: 0px;object-fit: cover;" />
-        <div class="card-img-overlay">
-            <h4 style="color: var(--bs-card-bg);font-size: 30px;margin-top: 223px;margin-left: 130px;text-align: left;">Live in moments that<br />matter.</h4>
-            <a href='/tour' class="btn btn-primary" type="button" style="margin-left: 131px;margin-top: 25px;background: #3da43a;border-color: var(--bs-card-cap-bg);">Explore Now</a>
+<div class="justify-items-center d-flex flex-column align-content-center " style="background: url({{ asset('/storage/images/background.jpg') }})  rgba(0, 0, 0, 0.5);  background-blend-mode: multiply; background-position-x: center; background-position-y: center; background-repeat: no-repeat; background-size: cover">
+    @include('layout/header');
+    <div class="d-flex align-items-center justify-content-center" >
+    <div class="d-flex flex-column justify-content-center text-white align-items-start" style="font-size:20px; height: 450px; width:80%;">
+        <h2 style="font-family: 'Comfortaa'; font-weight: 600; margin-top: -30px" >Live in moments that<br />matter.</h2>
+        <a href='/tour' class="btn text-white mt-3 mb-3" type="button" style="background: #3da43a;">Explore Now</a>
+    </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center flex-column align-items-center my-3 pt-1">
+    <h4 class="mt-4" style="font-family: 'Comfortaa'; font-weight: 600;">Popular Destinations</h4>
+    <p class="mt-1 mb-3" style="font-size: 16px;">Our most favorite destinations you will love</p>
+
+    
+    <div class="row mt-3 mb-4" style="width: 80%; height: fit-content;">
+        @foreach($province as $p)
+        <a class="col text-start btn"  href="/tour/province/{{$p->id}}">
+            @foreach($p->place as $pp)
+            <img src="{{ asset('/storage/images/'.$pp->place_image) }}" width="310" height="310" style="object-fit: cover"/>
+            @break
+            @endforeach
+            <p class="mt-4  text-decoration-none text-center" style="font-size: 16px"><strong>{{$p->province_name}}</strong></p>
+        </a> 
+        @endforeach
+    </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center" style="background: #f8f7f7; height: 500px ">
+    <div class="d-flex justify-content-between align-items-center w-75" style="">
+        <div>
+            <h1 class="" style="font-size: 30px;">Decide your own trip</h1>
+            <p>Create and customize your version of an ideal<br />trip and we'll make it happen!</p>
+            <a class="btn text-white" href="/requestTrip" style="background-color: #3DA43A">Request Trip</a>
         </div>
+        <img src={{ asset('/storage/images/compass.jpg') }} style="object-fit: cover;" width="400" height="400" />
     </div>
-</section>
-<section>
-    <h1 style="font-size: 25px;text-align: center;margin-bottom: 15px;margin-top: 45px;">Popular Destinations</h1>
-    <p style="text-align: center;">Our most favorite destinations you will love</p>
-</section>
-<section class="d-xl-flex justify-content-center" style="margin-bottom: 45px;">
-    <div style="text-align: center;"><img src={{ asset('/storage/images/Kuta.jpg') }} width="340" height="340" style="object-fit: cover"/>
-        <p style="margin-top: 10px;"><strong>Bali</strong></p>
+</div>
+
+<div class="text-center d-flex flex-column justify-content-center align-items-center mb-4" style="">
+    <h4 class="mt-5" style="font-family: 'Comfortaa'; font-weight: 600; color:#3DA43A">Tour Packages for you</h4>
+    <p >Explore the nature</p>
+  
+    <div class="row mt-3" style="width: 80%; height: fit-content;">
+    @foreach($tour as $t)
+        <a class="col text-start btn"  href="/tour/{{$t->id}}" style="font-size: 14px">
+            @foreach($t->tourPlace as $tp)
+                <img class="m-0 w-100" src="{{ asset('/storage/images/'.$tp->place->place_image) }}" style="object-fit: cover; height:230px" />
+                @break
+            @endforeach
+            <p class="mb-2 mt-3" style="overflow-wrap: break-word; width:200px;">
+                <strong>{{$t->tour_title}}</strong>
+            </p>
+            <p class="m-0 font-weight-bold">
+            @php
+                echo "Rp". number_format($t->price, 2, ",", ".");
+            @endphp
+            </p>
+        </a>
+    @endforeach
     </div>
-    <div style="margin-left: 20px;margin-right: 20px;"><img src={{ asset('/storage/images/DanauKelimutu.jpg') }} style="width: 340px;height: 340px;object-fit: cover;" />
-        <p style="text-align: center;margin-top: 10px;"><strong>Nusa Tenggara Timur</strong></p>
-    </div>
-    <div><img src={{ asset('/storage/images/Monas.jpg') }} style="width: 340px;height: 340px;object-fit: cover;" />
-        <p style="text-align: center;margin-top: 10px;"><strong>Jakarta</strong></p>
-    </div>
-</section>
-<section class="d-xl-flex justify-content-center" style="background: #f8f7f7;">
-    <div style="margin-top: 145px;margin-bottom: 145px;margin-right: 135px;">
-        <h1 class="d-xxl-flex justify-content-xxl-start" style="font-size: 30px;">Decide your own trip</h1>
-        <p>Create and customize your version of an ideal<br />trip and we&#39;ll make it happen!</p><button class="btn btn-primary" type="button" style="background: rgb(61,164,58);border-width: 0px;">Request Trip</button>
-    </div>
-    <div><img src={{ asset('/storage/images/compass.jpg') }} style="width: 507px;margin-top: 47px;margin-bottom: 47px;object-fit: cover;" width="507" height="366" /></div>
-</section>
-<section>
-    <h1 class="text-center" style="margin-top: 45px;color: rgb(61,164,58);padding-left: 0px;font-size: 30px;margin-left: 0px;margin-bottom: 15px;">Tour Packages for You</h1>
-    <p style="text-align: center;">Explore the nature</p>
-    <section>
-        <section class="d-xl-flex justify-content-center" style="margin-bottom: 45px;">
-            <div style="text-align: center;"><img src={{ asset('/storage/images/Malioboro.jpg') }} width="390" height="340" style="width: 240px;height: 240px;object-fit: cover;" />
-                <p style="margin-top: 10px;"><strong>Malioboro</strong></p>
-            </div>
-            <div style="margin-left: 20px;margin-right: 20px;"><img src={{ asset('/storage/images/PulauKomodo.jpg') }} style="width: 240px;height: 240px;object-fit: cover;" />
-                <p style="text-align: center;margin-top: 10px;"><strong>Komodo Island</strong></p>
-            </div>
-            <div><img src={{ asset('/storage/images/LabuanBajo.jpg') }} style="width: 240px;height: 240px;object-fit: cover;" />
-                <p style="text-align: center;margin-top: 10px;"><strong>Labuan Bajo</strong></p>
-            </div>
-            <div><img src={{ asset('/storage/images/PantaiPink.jpg') }} style="width: 240px;height: 240px;margin-left: 20px;object-fit: cover;" />
-                <p style="text-align: center;margin-top: 10px;"><strong>Pantai Pink</strong></p>
-            </div>
-        </section>
-    </section>
-</section>
+</div>
 @endsection
