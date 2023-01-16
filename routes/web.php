@@ -42,9 +42,13 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth', 'verified', 'user']], function () {
 
-    Route::get('/requestTrip', [ReqTripController::class, 'showProvince']);
-    Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
+    Route::get('/requestTrip/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/requestTrip/{id}', [ReqTripController::class, 'showProvinces']);
+    // Route::get('/requestTrip', [ReqTripController::class, 'showProvince']);
+    // Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
+    Route::get('/requestTripView/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/requestTripView/{id}', [ReqTripController::class, 'edit']);
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy']);

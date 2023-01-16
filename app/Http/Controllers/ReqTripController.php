@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use App\Models\Province;
+use App\Models\RequestPlace;
+use App\Models\RequestTrip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use stdClass;
 
 class ReqTripController extends Controller
 {
@@ -48,6 +51,22 @@ class ReqTripController extends Controller
 
         return response()->json($place);
     }
+    public function showProvinces(Request $request)
+     {
+        $trips = new stdClass();
+        $trips->total_guest = null;
+        $trips->max_price = null;
+        $trips->start_date = null;
+        $trips->end_date = null;
+        $trips->trip_plan = null;
+        $trips->province_id = null;
+        $trips_place = null;
+        $province = Province::all();
+      
+
+        //  return view('addTour', compact('province','category'));
+        return view('requestTrip', compact('trips','province','trips_place'));
+     }
     public function store(Request $request, $user_id)
     {
         $rules = [
@@ -106,7 +125,11 @@ class ReqTripController extends Controller
      */
     public function edit($id)
     {
-        //
+        $trips = RequestTrip::find($id);
+        $trips_place = RequestPlace::all()->where('request_id', $id);
+        $province = Province::all();
+
+        return view('requestTrip', compact('trips','province','trips_place'));
     }
 
     /**
