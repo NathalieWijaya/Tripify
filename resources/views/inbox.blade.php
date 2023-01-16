@@ -94,7 +94,7 @@
             </div>
             
             <div class="d-flex justify-content-end">
-                <button {{$disabled}} class="btn form-control text-white" style="width: 100px; background-color: #3DA43A;" type="submit">Search</button>
+                <button {{$disabled}} name="search" class="btn form-control text-white" style="width: 100px; background-color: #3DA43A;" type="submit">Search</button>
             </div>
         </form>
         
@@ -105,6 +105,7 @@
                     <td>Sent date</td>
                     <td>Status</td>
                     <td>Updated at</td>
+                    <td>Action</td>
                 @else
                     <td>Request Destination</td>
                     <td>Sent date</td>
@@ -156,8 +157,48 @@
                             {{$i->note}}
                         @endif
                         </td>
+                    @else 
+                    <td>
+                        <a class="btn p-0 me-2 bg-transparent border-0 bi bi-eye"></a>
+                        <button class="btn p-0 me-2 bg-transparent border-0 bi bi-check-lg" data-bs-toggle="modal" data-bs-target="#modal{{$i->id}}"></button>
+                        <a class="btn p-0 m-0 bg-transparent border-0 bi bi-bag-plus"></a>
+                    </td>
                     @endif 
                 </tr>
+
+                <div class="modal fade modal" id="modal{{$i->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-scrollable ">
+                        <div class="modal-content">
+                            <form  action="/inbox/{{Auth::user()->id}}/filter" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Approval</h1>
+                                </div>
+
+                                <div class="mt-3 mx-3" >
+                                    <div class="form-floating w-100">
+                                        <textarea {{$i->status->id == 2 || $i->status->id == 3  ? "disabled" : ""}} class="form-control mb-3 note" id="note" style="height: 100px"  placeholder="Note" name="note"></textarea>
+                                        <label for="additional">Note</label>
+                                    </div>
+                                    <div class="form-floating w-100">
+                                        <select {{$i->status->id == 2 || $i->status->id == 3  ? "disabled" : ""}}  class="form-select form-control mb-3 text-black status" id="statusUp" placeholder="status" name="statusUp">
+                                        @foreach($status as $s)
+                                                <option class="text-black" {{$i->status->id == $s->id ? "selected" : ""}} value="{{$s->id}}">{{$s->status_name}}</option>
+                                        @endforeach
+                                        </select>
+                                        
+                                        <label for="additional">Status</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn text-white bg-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="inboxId" class="btn text-white update" value="{{$i->id}}" style="background-color: #3DA43A; {{$i->status->id == 2 || $i->status->id == 3  ? 'display: none' : ''}}">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 @endforeach
             @else
                 <tr>
@@ -167,6 +208,21 @@
         </table>
     </div>
 </div>
-
+<script>
+    // $('.update').on('click',function(){
+    //     var reqTripId = $(this).val();
+    //     var status = $('.status').val();
+    //     var note = $('.note').val();
+    //     console.log(note);
+    //     $.ajax({
+    //         type: "post",
+    //         data: {_method: 'PATCH', _token: "{{ csrf_token() }}"},
+    //         url: "/approve/" + reqTripId + "/" + status + "/" + note,
+    //         success: function (html) {
+    //             location.reload();
+    //         }
+    //     })
+    // }); 
+</script>
 @endsection
 

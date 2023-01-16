@@ -8,7 +8,6 @@
         <h3 style="color: #3DA43A; font-family: 'Comfortaa'; ">Purchase</h3>
 
         <div class="my-5 d-flex flex-row justify-content-between">
-            
             <div class="col-7" >
                @foreach($carts as $c)
                 <div class="d-flex flex-row">
@@ -55,7 +54,7 @@
                             @endphp
                             </p>
                         </div>
-                        <p class="m-0 align-self-end" style="">{{$c->qtyBuy}} item(s)</p>
+                        <p class="m-0 align-self-end" style="white-space:nowrap">{{$c->qtyBuy}} item(s)</p>
                     </div>
                 </div>
 
@@ -64,10 +63,6 @@
             </div> 
 
             <div class="col-4">
-                <!-- <div class="d-flex flex-row mb-0">
-                    <h5 class="mb-0 me-5" style="">Credit/Debit Card</h5>
-                    <img src="/asset/card.png" height="25px">
-                </div>  -->
 
                 <div class="d-flex flex-row justify-content-between">
                     <div class="border" style="width: 100%;  border-radius: 15px">
@@ -112,21 +107,20 @@
 <script type="text/javascript">
     var payButton = document.getElementById('pay-button');
     payButton.addEventListener('click', function () {
-
-    window.snap.pay('{{$snapToken}}', {
-        onSuccess: function(result){  
-             window.location = 'http://127.0.0.1:8000/payment/{{Auth::user()->id}}';
-        },
-        onPending: function(result){
-            alert("Wating your payment!"); 
-        },
-        onError: function(result){
-            alert("Payment failed!"); 
-        },
-        onClose: function(){
-            alert('You closed the popup without finishing the payment');
-        }
-    })
+        window.snap.pay('{{$snapToken}}', {
+            onSuccess: function(result){  
+                window.location = 'http://127.0.0.1:8000/payment/{{Auth::user()->id}}';
+            },
+            onPending: function(result){
+                alert("Wating your payment!"); 
+            },
+            onError: function(result){
+                alert("Payment failed!"); 
+            },
+            onClose: function(){
+                alert('You closed the popup without finishing the payment');
+            }
+        })
     });
 </script>
 @endsection

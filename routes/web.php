@@ -6,6 +6,7 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentHistoryController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\PrivateTourController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReqTripController;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/about', function () {
     return view('aboutUs');
@@ -33,6 +34,11 @@ Route::get('/about', function () {
 Route::get('/tour/{id}', [TourController::class, 'show']);
 Route::get('/tour', [TourController::class, 'index']);
 Route::get('/tour/province/{id}', [TourController::class, 'filterProvince']);
+Route::get('/tour/sort/{sort}', [TourController::class, 'sort']);
+
+Route::get('/guide', function () {
+    return view('guide');
+});
 
 Auth::routes();
 
@@ -43,7 +49,13 @@ Route::group(['middleware' => ['auth', 'user']], function () {
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
+    Route::post('/cart/add/{tour}/{qty}', [CartController::class, 'store']);
+
+    Route::post('/cart/update/{id}/{qty}', [CartController::class, '']);
+    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy']);
+
     Route::post('/purchase', [CartController::class, 'getCheckedCart']);
+    Route::post('/tour/purchase', [TourController::class, 'purchase']);
 
 });
 
@@ -52,6 +64,10 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/addDestination', [DestinationController::class, 'showProvince']);
     Route::post('/addDestination', [DestinationController::class, 'store']);
+
+    Route::get('/addTour/private/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/addTour/private/{id}', [PrivateTourController::class, 'showProvinceAndCategory']);
+    Route::post('/addTour/private/{id}', [PrivateTourController::class, 'store']);
     Route::get('/addTour', [ProvinceController::class, 'showProvince']);
     Route::get('/addTour', [TourController::class, 'showProvinceAndCategory']);
     Route::get('getPlaceTour/{id}', [TourController::class, 'showPlace']);
@@ -61,8 +77,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
-    
-    Route::get('/delete/cart/{id}', [CartController::class, 'delete']);
+
+    // Route::patch('/approve/{id}/{status}/{note}', [InboxController::class, 'approve']);
+
 });
 
 

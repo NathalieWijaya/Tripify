@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RequestTrip extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['note'];
     public function user() {
         return $this->belongsTo(User::class);
     }

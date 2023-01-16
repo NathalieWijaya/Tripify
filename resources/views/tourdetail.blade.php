@@ -101,7 +101,8 @@
                 </div>
             </div>
         
-            <div class="col d-flex flex-column ms-3">
+            <form class="col d-flex flex-column ms-3" action="/tour/purchase" method="POST">
+                @csrf
                 <h2 style="; font-weight: 600">{{ $tour->tour_title }}</h2>
                 <div class="d-flex flex-row justify-content-between w-100 mt-2 ">
                     <h3 class="m-0" style="color: #3DA43A; font-weight:600 ">
@@ -112,7 +113,7 @@
 
                     <div class="d-flex flex-row align-items-center">
                         <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
-                        <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty" value="0">
+                        <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty" value="1">
                         <div class="btn plus bg-light text-center align-self-center" style="font-size: 18px; width:35px">+</div>
                     </div>
                 </div>
@@ -120,10 +121,10 @@
                 <p class="text-danger mb-3 mt-2">Remaining slot(s): {{$stock}}</p>
 
                 <div class="d-flex flex-row align-items-center w-100 ms-0">
-                    <button class="btn text-white bg-secondary me-2 " style="font-size: 18px">Add to Cart</button>
-                    <button class="btn text-white" style="background-color: #3DA43A; font-size: 18px">Purchase</button>
+                    <button {{$disabled}} type="button" value="{{$tour->id}}" class="btn text-white bg-secondary me-2 addCart" style="font-size: 18px">Add to Cart</button>
+                    <button type="submit" class="btn text-white" name="id" value="{{$tour->id}}" style="background-color: #3DA43A; font-size: 18px">Purchase</button>
                 </div>
-
+                
                 <div class="mt-4">
                     <p style="font-weight: bold;font-size: 18px;">Description</p>
                     <p class="mb-1" style="font-size: 16px;">
@@ -143,7 +144,7 @@
                     </div>
                 </div>
                
-            </div>
+            </form>
         </div>
     </div>
 </div>            
@@ -185,8 +186,8 @@
 	    }
     });
     $('.minus').click(function () {
-        if ($(this).next().val() > 0) {
-            if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);
+        if ($(this).next().val() > 1) {
+            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
         }
     });
 
@@ -213,12 +214,33 @@
             slides[i].style.display = "none";
         }
         for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
+            dots[i].className = dots[i].className.replace("active", "");
         }
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += " active";
         captionText.innerHTML = dots[slideIndex-1].alt;
     }
+</script>
+
+<script>
+    $('.addCart').on('click',function(){
+        if(!'{{Auth::user()}}') {
+           window.location = 'http://127.0.0.1:8000/login';
+        } else{
+            console.log('masuk');
+            var tourid = $(this).val();
+            var qty = $('.num').val();
+           
+            $.ajax({
+                type: "post",
+                data: {_method: 'POST', _token: "{{ csrf_token() }}"},
+                url: "/cart/add/" + tourid + "/" + qty,
+                success: function (html) {
+                    location.reload();
+                }
+            })
+        };
+    })
 </script>
 
 
