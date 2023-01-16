@@ -15,4 +15,8 @@ class Province extends Model
     public function requestTrip(){
         return $this->hasMany(RequestTrip::class);
     }
+
+    public function tour(){
+        return $this->hasMany(Tour::class);
+    }
 }

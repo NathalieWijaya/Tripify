@@ -24,5 +24,15 @@ class CartSeeder extends Seeder
             'tour_id' => '2',
             'quantity' => '1'
         ]);
+        DB::table('carts')->insert([
+            'user_id' => '3',
+            'tour_id' => '1',
+            'quantity' => '1'
+        ]);
+        DB::table('carts')->insert([
+            'user_id' => '3',
+            'tour_id' => '3',
+            'quantity' => '1'
+        ]);
     }
 }
