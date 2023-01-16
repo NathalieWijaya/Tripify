@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex flex-row justify-content-center py-3" style="background-color:#EFF5EE; text-align:center;">
+<div class="container-fluid d-flex flex-row justify-content-center py-3 px-0" style="background-color:#EFF5EE; text-align:center;">
     <div style="width: 80%" class="">
         <div class="pt-4">
             <div class="text-start" style="color: #1C651A; font-family: 'Comfortaa'; font-weight: 600; font-size: 20px">Tripify</div>

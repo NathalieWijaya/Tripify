@@ -42,5 +42,26 @@ class TourPlaceSeeder extends Seeder
             'tour_id' => '3',
             'place_id' => '12'
         ]);
+
+        DB::table('tour_places')->insert([
+            'tour_id' => '4',
+            'place_id' => '15'
+        ]);
+        DB::table('tour_places')->insert([
+            'tour_id' => '4',
+            'place_id' => '16'
+        ]);
+        DB::table('tour_places')->insert([
+            'tour_id' => '4',
+            'place_id' => '17'
+        ]);
+        DB::table('tour_places')->insert([
+            'tour_id' => '5',
+            'place_id' => '8'
+        ]);
+        DB::table('tour_places')->insert([
+            'tour_id' => '5',
+            'place_id' => '9'
+        ]);
     }
 }

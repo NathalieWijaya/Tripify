@@ -73,7 +73,8 @@ class ReqTripController extends Controller
             'end_date' => $request->end_date,
             'trip_plan' => $request->trip_plan,
             'max_price' => $request->max_price,
-            'status_id' => '1'
+            'status_id' => '1',
+            'request_date' => \Carbon\Carbon::now()
         ]);
 
         $request_id = DB::table('request_trips')->latest('id')->first()->id;
