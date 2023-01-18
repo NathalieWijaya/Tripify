@@ -5,6 +5,7 @@
 @section('logo', 'white')
 @section('cart', 'white')
 @section('profile', 'white')
+@section('add', 'white')
 @section('login', 'text-white')
 @section('register', 'text-white')
 
