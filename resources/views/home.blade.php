@@ -51,7 +51,7 @@
         <div>
             <h1 class="" style="font-size: 30px;">Decide your own trip</h1>
             <p>Create and customize your version of an ideal<br />trip and we'll make it happen!</p>
-            <a class="btn text-white" href="/requestTrip/{{Auth::user()->id}}" style="background-color: #3DA43A">Request Trip</a>
+            <a class="btn text-white" href="/requestTrip" style="background-color: #3DA43A">Request Trip</a>
         </div>
         <img src={{ asset('/storage/images/compass.jpg') }} style="object-fit: cover;" width="400" height="400" />
     </div>

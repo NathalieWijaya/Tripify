@@ -6,7 +6,7 @@
         <div class="d-flex flex-row my-3">
             <a class="mb-1 me-4" style="color:black; text-decoration:none;" href="/">Home</a>
             <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/tour">Tour</a>
-            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/requestTrip/{{Auth::user()->id}}">Request Trip</a>
+            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/requestTrip">Request Trip</a>
             <a class="mb-1 ms-4" style="color:black; text-decoration:none;" href="/guide">Guide</a>
         </div>
 
