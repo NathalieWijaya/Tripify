@@ -78,7 +78,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
-
 });
 
 

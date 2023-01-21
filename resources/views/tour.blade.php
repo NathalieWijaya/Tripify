@@ -127,8 +127,9 @@
 
                 <div class="row mt-4 content" style="font-size: 15px;">
                     @foreach ($tour as $t)
-                    @if($selectedCategory == "all")
-                        
+                    @if($selectedCategory == null)
+                    <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                    @elseif($selectedCategory == "all")
                     <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
                     @else
                     <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->tour_id}}" style="text-decoration: none;">

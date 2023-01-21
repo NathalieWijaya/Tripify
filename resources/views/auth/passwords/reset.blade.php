@@ -4,10 +4,6 @@
 <div class="container my-5" style="width: 50%">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            {{-- <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body"> --}}
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
                         <div style="text-align:center">
@@ -53,8 +49,6 @@
                             </button>
                         </div>
                     </form>
-                {{-- </div>
-            </div> --}}
         </div>
     </div>
 </div>

@@ -59,8 +59,6 @@
             
         @if(count($cart) > 0)
                 @foreach($cart as $c)
-                    <!-- Detail Cart Start -->
-                    
                     <div class="d-flex flex-row ">
                         <div class="" style="width: fit-content ">
                             @foreach($c->tour->tourPlace as $tp)
@@ -104,7 +102,6 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="d-flex flex-column justify-content-between">
                             <div class="align-self-end d-flex flex-row">
                                 <button class="bi bi-trash3 deletebutton me-3" style="background: none; border:none; font-size:22px" id="deletebutton" type="button" value="{{ $c->tour_id }}"></button>
@@ -112,14 +109,12 @@
                                 <input class="form-check-input checkbox" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
                                 <input style="display:none" name="id[]" value="{{$c->id}}">
                             </div>
-
                             <div class="d-flex flex-row align-items-center">
                                 <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
                                 <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty[]" value="{{$c->quantity}}">
                                 <div class="btn plus bg-light text-center align-self-center" style="font-size: 18px; width:35px">+</div>
                             </div>
                         </div>
-                        
                     </div>
                     <hr class="my-4">
                 @endforeach
@@ -130,8 +125,6 @@
         </form>
     </div>
 </div>
-
-
 <script>
     $('.plus').click(function () {
 		if ($(this).prev().val() < 20) {
@@ -145,7 +138,6 @@
         }
     });
 </script>
-
 <script>
     $('.deletebutton').on('click',function(){
         var tourid = $(this).val();
@@ -158,7 +150,6 @@
              }
         })
     }); 
-
     function validate(){
         var checkbox = $('.checkbox:checked').val();
         console.log((checkbox));
@@ -166,7 +157,7 @@
             alert('Please check at least one box');
             return false;
         }
-        return ture;
+        return true;
     }
 </script>
 @endsection
