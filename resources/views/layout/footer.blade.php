@@ -4,16 +4,16 @@
             <div class="text-start" style="color: #1C651A; font-family: 'Comfortaa'; font-weight: 600; font-size: 20px">Tripify</div>
         </div>
         <div class="d-flex flex-row my-3">
-            <a class="mb-1 me-4" style="color:black; text-decoration:none;" href="#">Home</a>
-            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="#">Tour</a>
-            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="#">Request Trip</a>
-            <a class="mb-1 ms-4" style="color:black; text-decoration:none;" href="#">Guide</a>
+            <a class="mb-1 me-4" style="color:black; text-decoration:none;" href="/">Home</a>
+            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/tour">Tour</a>
+            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/requestTrip">Request Trip</a>
+            <a class="mb-1 ms-4" style="color:black; text-decoration:none;" href="/guide">Guide</a>
         </div>
 
         <div class="d-flex flex-row" >
-            <a class="mb-1 me-4" style="color:black; text-decoration:none;" href="#">About Us</a>
-            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="#">Register</a>
-            <a class="mb-1 ms-4" style="color:black; text-decoration:none;" href="#">Login</a>
+            <a class="mb-1 me-4" style="color:black; text-decoration:none;" href="/about">About Us</a>
+            <a class="mb-1 mx-4" style="color:black; text-decoration:none;" href="/register">Register</a>
+            <a class="mb-1 ms-4" style="color:black; text-decoration:none;" href="/login">Login</a>
         </div>
         <div class="text-end" style=" font-size:20px;">
             <a href="https://www.facebook.com/" style="text-decoration: none; color:#1C651A" class="me-2">
