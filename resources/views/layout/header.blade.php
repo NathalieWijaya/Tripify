@@ -6,7 +6,7 @@
             <a class="nav-link mx-2 @yield('navHome') hover-underline-animation" href="/">Home</a>
             <a class="nav-link mx-2 @yield('navTour') hover-underline-animation" href="/tour">Tour</a>
             <a class="nav-link mx-2 @yield('navReq') hover-underline-animation" href="/requestTrip">Request Trip</a>
-            <a class="nav-link mx-2 @yield('navGuide') hover-underline-animation" href="#">Guide</a>
+            <a class="nav-link mx-2 @yield('navGuide') hover-underline-animation" href="/guide">Guide</a>
             <a class="nav-link mx-3 @yield('navAbout') hover-underline-animation" href="/about">About Us</a>
         </div>
         
@@ -33,6 +33,18 @@
                 <a href="/cart/{{Auth::user()->id}}" style="color: @yield('cart'); text-decoration:none"> 
                     <i class="bi bi-cart3"></i>
                 </a>
+                @else
+                <div aria-labelledby="navbarDropdownAdmin">
+                    <button id="navbarDropdownAdmin" class="nav-link ms-3 bg-transparent border-0" style="color: @yield('add')" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
+                        <i class="bi bi-plus-circle"></i>
+                    </button>
+    
+    
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/addDestination">Add New Destination</a></li>
+                        <li><a class="dropdown-item" href="/addTour">Add New Tour</a></li>
+                      </ul>
+                    </div>
                 @endif
                 <a id="navbarDropdown" class="nav-link ms-3" style="color: @yield('profile');" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
                     <i class="bi bi-person-circle"></i>

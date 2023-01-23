@@ -5,6 +5,7 @@
 @section('logo', 'white')
 @section('cart', 'white')
 @section('profile', 'white')
+@section('add', 'white')
 @section('login', 'text-white')
 @section('register', 'text-white')
 
@@ -34,7 +35,7 @@
     
     <div class="row mt-3 mb-4" style="width: 80%; height: fit-content;">
         @foreach($province as $p)
-        <a class="col text-start btn"  href="/tour/province/{{$p->id}}">
+        <a class="col text-start btn"  href="/tour">
             @foreach($p->place as $pp)
             <img src="{{ asset('/storage/images/'.$pp->place_image) }}" width="310" height="310" style="object-fit: cover"/>
             @break

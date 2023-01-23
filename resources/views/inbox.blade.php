@@ -208,21 +208,5 @@
         </table>
     </div>
 </div>
-<script>
-    // $('.update').on('click',function(){
-    //     var reqTripId = $(this).val();
-    //     var status = $('.status').val();
-    //     var note = $('.note').val();
-    //     console.log(note);
-    //     $.ajax({
-    //         type: "post",
-    //         data: {_method: 'PATCH', _token: "{{ csrf_token() }}"},
-    //         url: "/approve/" + reqTripId + "/" + status + "/" + note,
-    //         success: function (html) {
-    //             location.reload();
-    //         }
-    //     })
-    // }); 
-</script>
 @endsection
 

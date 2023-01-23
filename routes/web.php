@@ -33,8 +33,7 @@ Route::get('/about', function () {
 
 Route::get('/tour/{id}', [TourController::class, 'show']);
 Route::get('/tour', [TourController::class, 'index']);
-Route::get('/tour/province/{id}', [TourController::class, 'filterProvince']);
-Route::get('/tour/sort/{sort}', [TourController::class, 'sort']);
+Route::post('/tour/filter', [TourController::class, 'filter']);
 
 Route::get('/guide', function () {
     return view('guide');
@@ -44,9 +43,11 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth', 'user']], function () {
 
-    Route::get('/requestTrip', [ReqTripController::class, 'showProvince']);
-    Route::get('getPlace/{id}', [ReqTripController::class, 'showPlace']);
+    Route::get('/requestTrip/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/requestTrip', [ReqTripController::class, 'showProvinces']);
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
+    Route::get('/requestTripView/{id}', [ProvinceController::class, 'showProvince']);
+    Route::get('/requestTripView/{id}', [ReqTripController::class, 'edit']);
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
     Route::post('/cart/add/{tour}/{qty}', [CartController::class, 'store']);
@@ -77,9 +78,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
-
-    // Route::patch('/approve/{id}/{status}/{note}', [InboxController::class, 'approve']);
-
 });
 
 

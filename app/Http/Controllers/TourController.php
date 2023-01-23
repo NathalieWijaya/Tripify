@@ -21,34 +21,82 @@ use stdClass;
 
 class TourController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $tour = Tour::all();
         $province = Province::all();
         $category = Category::all();
         $selectedProv = "all";
+        $selectedProvince = null;
+        $selectedCategory = null;
         $selectedCat = 'all';
-        return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat'));
+        $disabled = null;
+        $selectedSort = null;//
+        $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->get();
+        return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat','selectedProvince','disabled','selectedCategory','selectedSort', 'tourPlaces'));
     }
 
-    public function sort($sort){
+    public function filter(Request $request)
+    {
+        $selectedProvince = $request->province;
+        $selectedCategory = $request->category;
+        $disabled = null;
+        $province = Province::all();
+        $category = Category::all();
         $tour = Tour::all();
-        if($sort == "asc"){
+        $selectedSort = $request->sort;
+        $tourPlaces = null;
+
+
+        if($selectedProvince != "all" and $selectedCategory != "all"){
+            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('province_id', '=', $selectedProvince)->get();
+            $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->join('places', 'places.id', '=', 'tour_places.place_id')->where('tours.province_id','=',$selectedProvince)->get();
+        }
+
+        else if($selectedProvince != 'all'){
+            $tour = Tour::where('province_id','=' , $selectedProvince)->get();
+        }
+
+        else if($selectedCategory != 'all'){
+            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->get();
+            $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->join('places', 'places.id', '=', 'tour_places.place_id')->get();
+        }
+
+        
+
+
+        if ($selectedSort == "asc") {
             $tour = $tour->sortBy('tour_title');
-        }
-        else if($sort == "desc"){
+        } else if ($selectedSort == "desc") {
             $tour = $tour->sortByDesc('tour_title');
-        }
-        else if($sort == "min"){
+        } else if ($selectedSort == "min") {
             $tour = $tour->sortBy('price');
-        }
-        else if($sort == "max"){
+        } else if ($selectedSort == "max") {
             $tour = $tour->sortByDesc('price');
         }
+        
+        return view('tour', compact('tour','selectedProvince','selectedCategory', 'disabled', 'province', 'category', 'selectedSort', 'tourPlaces'));
     }
 
-    public function purchase(Request $request) {
+    public function sort($sort)
+    {
+        $tour = Tour::all();
+        if ($sort == "asc") {
+            $tour = $tour->sortBy('tour_title');
+        } else if ($sort == "desc") {
+            $tour = $tour->sortByDesc('tour_title');
+        } else if ($sort == "min") {
+            $tour = $tour->sortBy('price');
+        } else if ($sort == "max") {
+            $tour = $tour->sortByDesc('price');
+        }
+        dd($sort);
+    }
+
+    public function purchase(Request $request)
+    {
         $grossAmount = 0;
-     
+
         $id = $request->id;
         $tour = Tour::find($id);
         $price = $tour->price;
@@ -71,27 +119,27 @@ class TourController extends Controller
         $cart->quantity = 0;
         $cart->user_id = Auth::user()->id;
         $carts[] = $cart;
-                
+
         $trans = Transaction::create([
             'user_id' => Auth::user()->id,
             'total_price' => $grossAmount,
             'status' => 'Unpaid'
         ]);
-       
 
-        foreach($itemDetails as $i){
+
+        foreach ($itemDetails as $i) {
             DB::table('transaction_details')->insert([
                 'transaction_id' => $trans->id,
                 'tour_id' => $i->id,
                 'quantity' => $i->quantity
-            ]); 
+            ]);
         }
 
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = false;
         Config::$isSanitized = true;
         Config::$is3ds = true;
-        
+
         $params = array(
             'transaction_details' => array(
                 'order_id' => $trans->id,
@@ -99,34 +147,21 @@ class TourController extends Controller
             ),
 
             'item_details' => json_decode(json_encode($itemDetails), true),
-            
+
             'customer_details' => array(
                 'first_name' => $trans->user->name,
                 'email' => $trans->user->email,
                 'phone' => $trans->user->phone
             ),
         );
-        
+
         $snapToken = Snap::getSnapToken($params);
 
         return view('purchase', compact('snapToken', 'params', 'carts'));
     }
-    
-    public function filterProvince($id){
-        $tour = Tour::where('province_id', $id)->get();
-        $province = Province::all();
-        $category = Category::all();
-        $selectedProv = $id;
-        $selectedCat = "all";
-        return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat'));
-    }
-
-    public function filterCategory(){
-        $tour = Tour::where();
-    }
 
     public function showProvinceAndCategory(Request $request)
-     {
+    {
         $current_tour = new stdClass();
         $current_tour->tour_title = null;
         $current_tour->province_id = null;
@@ -144,14 +179,15 @@ class TourController extends Controller
         $province = Province::all();
         $category = Category::all();
 
-        return view('addTour', compact('current_tour', 'current_tour_place', 'current_tour_category','province','category'));
-     }
+        return view('addTour', compact('current_tour', 'current_tour_place', 'current_tour_category', 'province', 'category'));
+    }
 
-     public function showPlace($id){
-         $place = Place::where('province_id',$id)->get();
+    public function showPlace($id)
+    {
+        $place = Place::where('province_id', $id)->get();
 
-         return response()->json($place);
-     }
+        return response()->json($place);
+    }
 
     public function store(Request $request)
     {
@@ -171,7 +207,7 @@ class TourController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
 
@@ -184,7 +220,7 @@ class TourController extends Controller
             'description' => $request->description,
             'highlights' => $request->highlights,
             'include' => $request->include,
-            'not_include'=> $request->not_include,
+            'not_include' => $request->not_include,
             'itinerary' => $request->itinerary,
             'price' => $request->price
         ]);
@@ -210,13 +246,13 @@ class TourController extends Controller
     {
         $tour = Tour::find($id);
         $sold = Transaction::where('status', 'Paid')
-        ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
-        ->where('transaction_details.tour_id', $id)
-        ->sum('transaction_details.quantity');
+            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transaction_details.tour_id', $id)
+            ->sum('transaction_details.quantity');
 
         $cart = 0;
 
-        if (Auth::user()){
+        if (Auth::user()) {
             $cart = Cart::where('user_id', Auth::user()->id)->where('tour_id', $id)->count();
         }
 
@@ -237,7 +273,7 @@ class TourController extends Controller
         $province = Province::all();
         $category = Category::all();
 
-        return view('addTour', compact('current_tour', 'current_tour_place', 'current_tour_category','province','category'));
+        return view('addTour', compact('current_tour', 'current_tour_place', 'current_tour_category', 'province', 'category'));
     }
 
     public function update(Request $request, $id)
@@ -258,7 +294,7 @@ class TourController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
 
@@ -271,7 +307,7 @@ class TourController extends Controller
             'description' => $request->description,
             'highlights' => $request->highlights,
             'include' => $request->include,
-            'not_include'=> $request->not_include,
+            'not_include' => $request->not_include,
             'itinerary' => $request->itinerary,
             'price' => $request->price
         ]);
@@ -290,15 +326,6 @@ class TourController extends Controller
                 'place_id' => $placeid
             ]);
         }
-
-
-
-
         return redirect('/');
-
     }
-
-
- 
-
 }
