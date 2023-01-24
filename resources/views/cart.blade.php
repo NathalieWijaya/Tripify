@@ -58,7 +58,11 @@
         @csrf
             
         @if(count($cart) > 0)
+                @php 
+                    $i = 0 ;
+                @endphp
                 @foreach($cart as $c)
+                    
                     <div class="d-flex flex-row ">
                         <div class="" style="width: fit-content ">
                             @foreach($c->tour->tourPlace as $tp)
@@ -87,9 +91,10 @@
                                         @php
                                             $count++;
                                         @endphp
-                                        <p class="px-2 py-1 rounded {{$ms}}"  style="font-size: 13px; width:fit-content; border: solid 1px black">{{$cat->category->category_name}}</p>
+                                        <p class="px-2 py-1 mb-2 rounded {{$ms}}"  style="font-size: 13px; width:fit-content; border: solid 1px black">{{$cat->category->category_name}}</p>
                                     @endforeach
                                 </div>
+                                <p class="text-danger mb-2">Remaining slot(s): {{$stock[$i]}}</p>
                                 <p  class="mb-2 mt-0">
                                 @php
                                     echo date_format(date_create($c->tour->start_date),"l, d F Y") . " - " . date_format(date_create($c->tour->end_date),"l, d F Y");
@@ -105,18 +110,23 @@
                         <div class="d-flex flex-column justify-content-between">
                             <div class="align-self-end d-flex flex-row">
                                 <button class="bi bi-trash3 deletebutton me-3" style="background: none; border:none; font-size:22px" id="deletebutton" type="button" value="{{ $c->tour_id }}"></button>
-                      
-                                <input class="form-check-input checkbox" style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
+                                <input class="form-check-input checkbox" {{$stock[$i] == 0 ? "disabled" : "" }} style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
                                 <input style="display:none" name="id[]" value="{{$c->id}}">
                             </div>
                             <div class="d-flex flex-row align-items-center">
                                 <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
-                                <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty[]" value="{{$c->quantity}}">
-                                <div class="btn plus bg-light text-center align-self-center" style="font-size: 18px; width:35px">+</div>
+                                <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty[]"  value="{{$c->quantity}}">
+                                <div class="btn  bg-light text-center align-self-center" style="font-size: 18px; width:35px"
+                                onclick="if ($(this).prev().val() < {{$stock[$i]}}) {
+                                    $(this).prev().val(+$(this).prev().val() + 1);
+                                }">+</div>
                             </div>
                         </div>
                     </div>
                     <hr class="my-4">
+                    @php 
+                        $i = $i + 1;
+                    @endphp
                 @endforeach
                 <button type="submit" class="btn form-control text-white purchase" style="background-color: #3DA43A; width:150px; float:right;">Purchase</button>   
             @else
@@ -126,12 +136,6 @@
     </div>
 </div>
 <script>
-    $('.plus').click(function () {
-		if ($(this).prev().val() < 20) {
-    	    $(this).prev().val(+$(this).prev().val() + 1);
-            
-	    }
-    });
     $('.minus').click(function () {
         if ($(this).next().val() > 1) {
             if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);

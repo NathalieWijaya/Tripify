@@ -5,7 +5,9 @@
         <div class="navbar-nav" style="color:black">
             <a class="nav-link mx-2 @yield('navHome') hover-underline-animation" href="/">Home</a>
             <a class="nav-link mx-2 @yield('navTour') hover-underline-animation" href="/tour">Tour</a>
+            @if(!Auth::user() || Auth::user()->is_admin == false)
             <a class="nav-link mx-2 @yield('navReq') hover-underline-animation" href="/requestTrip">Request Trip</a>
+            @endif
             <a class="nav-link mx-2 @yield('navGuide') hover-underline-animation" href="/guide">Guide</a>
             <a class="nav-link mx-3 @yield('navAbout') hover-underline-animation" href="/about">About Us</a>
         </div>
@@ -42,9 +44,10 @@
     
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/addDestination">Add New Destination</a></li>
+                        <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="/addTour">Add New Tour</a></li>
-                      </ul>
-                    </div>
+                    </ul>
+                </div>
                 @endif
                 <a id="navbarDropdown" class="nav-link ms-3" style="color: @yield('profile');" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" v-pre>
                     <i class="bi bi-person-circle"></i>

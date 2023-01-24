@@ -31,7 +31,7 @@ class TourController extends Controller
         $selectedCategory = null;
         $selectedCat = 'all';
         $disabled = null;
-        $selectedSort = null;//
+        $selectedSort = null;
         $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->get();
         return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat','selectedProvince','disabled','selectedCategory','selectedSort', 'tourPlaces'));
     }

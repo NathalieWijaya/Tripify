@@ -37,7 +37,9 @@
         @foreach($province as $p)
         <a class="col text-start btn"  href="/tour">
             @foreach($p->place as $pp)
-            <img src="{{ asset('/storage/images/'.$pp->place_image) }}" width="310" height="310" style="object-fit: cover"/>
+            <div class="square-container">
+                <img class="square" src="{{ asset('/storage/images/'.$pp->place_image) }}"/>
+            </div>
             @break
             @endforeach
             <p class="mt-4  text-decoration-none text-center" style="font-size: 16px"><strong>{{$p->province_name}}</strong></p>
@@ -65,10 +67,12 @@
     @foreach($tour as $t)
         <a class="col text-start btn"  href="/tour/{{$t->id}}" style="font-size: 14px">
             @foreach($t->tourPlace as $tp)
-                <img class="m-0 w-100" src="{{ asset('/storage/images/'.$tp->place->place_image) }}" style="object-fit: cover; height:230px" />
-                @break
+            <div class="square-container">
+                <img class="square"  src="{{ asset('/storage/images/'.$tp->place->place_image) }}" alt="">
+            </div>
+            @break
             @endforeach
-            <p class="mb-2 mt-3" style="overflow-wrap: break-word; width:200px;">
+            <p class="mb-2 mt-3" style="overflow-wrap: break-word;">
                 <strong>{{$t->tour_title}}</strong>
             </p>
             <p class="m-0 font-weight-bold">

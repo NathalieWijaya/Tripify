@@ -14,24 +14,14 @@
 @section('navReq', 'text-black')
 @section('navGuide', 'text-black')
 @section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
-<style>
-    .bi-chevron-up {
-        transition: all 0.3s ease;
-    }
-
-    .collapsed .bi-chevron-up {
-        transform: rotate(180deg);
-    }
-</style>
 
 <div class="d-flex justify-content-center my-5">
     <div style="width: 80%">
             <div class="col">
                 <h3 class="mb-4" style="color: #3da43a; font-family: 'Comfortaa'; font-weight: bold">Tours</h3>
-
-
 
                 <form class="" id="filter" action="/tour/filter" method="POST">
                     @csrf
@@ -40,15 +30,15 @@
                             <select {{$disabled}} class="form-select form-control" name="province">
                                 <option selected value="all">All</option>
                                 @foreach($province as $p)
-                                @php
-                                $selectedP = "";
-                                @endphp
-                                @if ($p->id == $selectedProvince)
-                                @php
-                                $selectedP = "selected";
-                                @endphp
-                                @endif
-                                <option value="{{$p->id}}" {{$selectedP}}>{{$p->province_name}}</option>
+                                    @php
+                                        $selectedP = "";
+                                    @endphp
+                                    @if ($p->id == $selectedProvince)
+                                        @php
+                                            $selectedP = "selected";
+                                        @endphp
+                                    @endif
+                                    <option value="{{$p->id}}" {{$selectedP}}>{{$p->province_name}}</option>
                                 @endforeach
                             </select>
                             <label>Province</label>
@@ -57,14 +47,14 @@
                             <select {{$disabled}} class="form-select form-control" name="category">
                                 <option selected value="all">All</option>
                                 @foreach($category as $c)
-                                @php
-                                $selected = "";
-                                @endphp
-                                @if ($c->id == $selectedCategory)
-                                @php
-                                $selected = "selected";
-                                @endphp
-                                @endif
+                                    @php
+                                        $selected = "";
+                                    @endphp
+                                    @if ($c->id == $selectedCategory)
+                                        @php
+                                            $selected = "selected";
+                                        @endphp
+                                    @endif
                                 <option value="{{$c->id}}" {{$selected}}>{{$c->category_name}}</option>
                                 @endforeach
                             </select>
@@ -76,44 +66,41 @@
                                 $selecteddesc = "";
                                 $selectedmin = "";
                                 $selectedmax = "";
-                                @endphp
+                            @endphp
                             <select class="form-select form-control sort" name="sort">
                                 @if ($selectedSort == "asc")
-                                @php
-                                $selectedasc = "selected";
-                                $selecteddesc = "";
-                                $selectedmin = "";
-                                $selectedmax = "";
-                                @endphp
+                                    @php
+                                        $selectedasc = "selected";
+                                        $selecteddesc = "";
+                                        $selectedmin = "";
+                                        $selectedmax = "";
+                                    @endphp
                                 @elseif ($selectedSort == "desc")
-                                @php
-                                $selectedasc = "";
-                                $selecteddesc = "selected";
-                                $selectedmin = "";
-                                $selectedmax = "";
-                                @endphp
+                                    @php
+                                        $selectedasc = "";
+                                        $selecteddesc = "selected";
+                                        $selectedmin = "";
+                                        $selectedmax = "";
+                                    @endphp
                                 @elseif($selectedSort == "min")
-                                @php
-                                $selectedasc = "";
-                                $selecteddesc = "";
-                                $selectedmin = "selected";
-                                $selectedmax = "";
-                                @endphp
+                                    @php
+                                        $selectedasc = "";
+                                        $selecteddesc = "";
+                                        $selectedmin = "selected";
+                                        $selectedmax = "";
+                                    @endphp
                                 @elseif($selectedSort == "max")
-                                @php
-                                $selectedasc = "";
-                                $selecteddesc = "";
-                                $selectedmin = "";
-                                $selectedmax = "selected";
-                                @endphp
+                                    @php
+                                        $selectedasc = "";
+                                        $selecteddesc = "";
+                                        $selectedmin = "";
+                                        $selectedmax = "selected";
+                                    @endphp
                                 @endif
-                                <option class="dropdown-item sort" selected value="all">All</option>
-                                <option class="dropdown-item sort" {{ $selectedasc }} value="asc">Ascending</option>
-                                <option class="dropdown-item sort" {{ $selecteddesc }} value="desc">Descending</option>
-                                <option class="dropdown-item sort" {{ $selectedmin }} value="min">Price (Low-High)
-                                </option>
-                                <option class="dropdown-item sort" {{ $selectedmax }} value="max">Price (High-Low)
-                                </option>
+                                <option class="dropdown-item sort" {{ $selectedasc }} value="asc">A-Z</option>
+                                <option class="dropdown-item sort" {{ $selecteddesc }} value="desc">Z-A</option>
+                                <option class="dropdown-item sort" {{ $selectedmin }} value="min">Price (Low-High)</option>
+                                <option class="dropdown-item sort" {{ $selectedmax }} value="max">Price (High-Low)</option>
                             </select>
                             <label>Sort By</label>
                         </div>
@@ -127,30 +114,36 @@
 
                 <div class="row mt-4 content" style="font-size: 15px;">
                     @foreach ($tour as $t)
-                    @if($selectedCategory == null)
-                    <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
-                    @elseif($selectedCategory == "all")
-                    <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
-                    @else
-                    <a class="col-lg-4 mb-3 text-black" href="/tour/{{$t->tour_id}}" style="text-decoration: none;">
-                    @endif
-                    @if($selectedCategory == null)    
-                    @foreach ($t->tourPlace as $tp)
-                    <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height=235 width=235 />
-                    @break
-                    @endforeach
-                    @elseif($selectedCategory == "all")
-                    @foreach ($t->tourPlace as $tp)
-                    <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height=235 width=235 />
-                    @break
-                    @endforeach
-                    @else
-                    @foreach ($tourPlaces as $tp)
-                    @if($tp->tour_id == $t->tour_id )
-                    <img src="{{ asset('storage/images/'. $tp->place_image) }}" height=235 width=235 />
-                    @break
-                    @endif
-                    @endforeach
+                        @if($selectedCategory == null)
+                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                        @elseif($selectedCategory == "all")
+                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                        @else
+                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->tour_id}}" style="text-decoration: none;">
+                        @endif
+                        @if($selectedCategory == null)    
+                            @foreach ($t->tourPlace as $tp)
+                                <div class="square-container">
+                                    <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
+                                </div>
+                                @break
+                            @endforeach
+                        @elseif($selectedCategory == "all")
+                            @foreach ($t->tourPlace as $tp)
+                                <div class="square-container">
+                                    <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
+                                </div>
+                                @break
+                            @endforeach
+                        @else
+                            @foreach ($tourPlaces as $tp)
+                                @if($tp->tour_id == $t->tour_id )
+                                    <div class="square-container">
+                                        <img class="square" src="{{ asset('storage/images/'. $tp->place_image) }}"/>
+                                    </div>
+                                @break
+                                @endif
+                            @endforeach
                         @endif
                         <p class="mt-2 mb-2" style="font-weight: bold">{{ $t->tour_title }}</p>
                         <p>

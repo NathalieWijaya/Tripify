@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Province;
 use App\Models\Tour;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -17,7 +16,18 @@ class CartController extends Controller
 {
     public function index($id){
         $cart = Cart::where('user_id', $id)->get();
-        return view('cart', compact('cart'));
+
+        foreach($cart as $c){
+            $sold = Transaction::where('status', 'Paid')
+            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transaction_details.tour_id', $c->tour_id)
+            ->sum('transaction_details.quantity');
+
+            $tour = Tour::find($c->tour_id);
+
+            $stock[] = $tour->max_slot - $sold;
+        }
+        return view('cart', compact('cart', 'stock'));
     }
 
     public function store($tourid, $qty){
@@ -26,7 +36,6 @@ class CartController extends Controller
             'tour_id' => $tourid,
             'quantity' => $qty
         ]);
-
     }
 
     public function update($id, $qty){

@@ -14,6 +14,7 @@
 @section('navReq', 'text-black')
 @section('navGuide', 'text-black')
 @section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 
@@ -22,9 +23,9 @@
   @if ($errors->any())
   <p class="text-danger">{{ $errors->first() }}</p>
   @endif
-  <div style="width: 35%">
+  <div style="width: 50%">
     <div style="text-align:center">
-        <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;" >Request an Event </p>
+        <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;" >Request Trip</p>
         <p>Please Provide the Following Information</p>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -32,19 +33,19 @@
               $disable = ""
             @endphp
             @if($trips->max_price)
-            @php
-              $disable = "disabled"
-            @endphp  
-              @endif
-          @if($trips->max_price)
-            @foreach($trips_place as $tp)
-            @php
-                $tp_id[] = $tp->place_id  
-            @endphp
-            @endforeach
-            @livewire('province-place', ['selectedPlace' => $tp_id ])
+              @php
+                $disable = "disabled"
+              @endphp  
+            @endif
+            @if($trips->max_price)
+              @foreach($trips_place as $tp)
+                @php
+                    $tp_id[] = $tp->place_id  
+                @endphp
+              @endforeach
+              @livewire('province-place', ['selectedPlace' => $tp_id ])
             @else
-            @livewire('province-place', ['selectedPlace' => null])
+              @livewire('province-place', ['selectedPlace' => null])
             @endif
           <div class="d-flex flex-row form-floating mb-3 w-100">
             <div class="form-control me-2" id="guest" style="width: 90%" >

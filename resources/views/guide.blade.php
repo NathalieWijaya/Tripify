@@ -1,6 +1,19 @@
 @extends('layout/template')
 
 @section('title','Guide')
+@section('border', 'border-bottom')
+            
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 
@@ -8,7 +21,7 @@
     <h2 style="font-family: Comfortaa; color: #3DA43A; text-align:center ">Guide</h2>
     <div style="width: 80%; text-align:center">
         <h4 style="font-family: Comfortaa; color: #3DA43A; font-size:20px">Booking Guide</h4>
-        <div class="mt-4" style="margin-left:30%">
+        <div class="mt-5 " style="margin-left:30%">
             <div class="bi bi-1-circle" style="font-size: 20px;font-family: Comfortaa; color: #3DA43A;"> Log In to Your
                 Account</div>
             <p>

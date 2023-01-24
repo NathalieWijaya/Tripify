@@ -15,7 +15,7 @@
 @section('navAbout', 'text-black')
 
 @section('content')
-<div class="d-flex justify-content-center my-5">
+<div class="d-flex justify-content-center mt-5 mb-1">
     <div style="width: 80%">
         <h3 style="color: #3DA43A; font-family: 'Comfortaa'; ">Purchase</h3>
 

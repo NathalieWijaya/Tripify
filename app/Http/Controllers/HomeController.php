@@ -29,12 +29,18 @@ class HomeController extends Controller
             $province = $prov->take(3);
         }
         else {
+            $count = 0;
             foreach($popular as $p){
                 foreach($prov as $pro){
                     if ($p->province_id == $pro->id){
                         $province[] = $pro;
+                        $count++;
+                        if ($count == 3)
+                            break;
                     }
                 }
+                if ($count == 3)
+                    break;
             }
         }
         return view('home', compact('tour', 'popular', 'province'));
