@@ -44,6 +44,23 @@
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+
+.square-container {
+  position: relative;
+}
+
+.square-container::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.square {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 </style>
 
     <header >

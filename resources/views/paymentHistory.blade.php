@@ -14,6 +14,7 @@
 @section('navReq', 'text-black')
 @section('navGuide', 'text-black')
 @section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 <div class="d-flex justify-content-center my-5">

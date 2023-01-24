@@ -13,21 +13,25 @@
 @section('navReq', 'text-black')
 @section('navGuide', 'text-black')
 @section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
+<style>
+    .bi-chevron-up {
+        transition: all 0.3s ease;
+    }
+
+    .collapsed .bi-chevron-up {
+        transform: rotate(180deg);
+    }
+</style>
 
 <div class="d-flex justify-content-center my-5">
     <div style="width: 80%">
         <h3 style="color: #3DA43A; font-family: 'Comfortaa'; " class="mb-4">Inbox Request</h3>
 
-        <div class="mb-3 mt-4 d-flex flex-row justify-content-between border-top border-bottom">
-            <button  class="w-100 border-0 text-start bg-transparent py-2 d-flex justify-content-between flex-row" id="filter-btn" data-bs-toggle="collapse"  data-bs-target="#filter"  >
-                <div class="left">Filter</div>
-                <i class="bi bi-chevron-down rotate" ></i>
-            </button>
-        </div>
 
-        <form class="collapse" id="filter" action="/inbox/{{Auth::user()->id}}/filter" method="POST" >
+        <form class="" id="filter" action="/inbox/{{Auth::user()->id}}/filter" method="POST" >
             @csrf
             <div class="d-flex flex-row mb-3">
                 <div class=" me-4 col form-floating">
@@ -206,6 +210,9 @@
                 </tr>
             @endif
         </table>
+        <div class="d-flex flex-row justify-content-end">
+            {{$inbox->links()}}
+        </div>
     </div>
 </div>
 @endsection

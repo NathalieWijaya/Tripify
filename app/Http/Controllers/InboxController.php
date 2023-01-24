@@ -18,7 +18,7 @@ class InboxController extends Controller
             $inbox = RequestTrip::all()->sortByDesc('request_date');
         }
         else {
-            $inbox = RequestTrip::where('user_id', $id)->get();
+            $inbox = RequestTrip::where('user_id', $id);
         }
         $status = Status::all();
         $province = Province::all();
@@ -28,9 +28,12 @@ class InboxController extends Controller
         $selectedSend = null;
         $selectedDestination = null;
         $disabled = "";
-        if(count($inbox) == 0){
+        $temp = $inbox->get();
+        if(count($temp) == 0){
             $disabled = "disabled";
         }
+
+        $inbox = $inbox->paginate(10);
 
         return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
     }
@@ -50,12 +53,11 @@ class InboxController extends Controller
             $selectedSend = $request->send;
             $selectedDestination = $request->destination;
             $disabled = "";
-    
+
             $inbox = RequestTrip::select()
                 ->join('users', 'user_id', '=', 'users.id')
                 ->where('email', 'like', "%$email%")
-                ->orderBy('request_date', $selectedSend)
-                ->get();
+                ->orderBy('request_date', $selectedSend);
     
             if(Auth::user()->is_admin == false){
                 $inbox = $inbox->where('user_id', Auth::user()->id);
@@ -71,6 +73,7 @@ class InboxController extends Controller
             
             $status = Status::all();
             $province = Province::all();
+            $inbox = $inbox->paginate(10);
             return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
         }
       

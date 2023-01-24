@@ -1,6 +1,19 @@
 @extends('layout/template')
 
 @section('title','Add Destination')
+@section('border', 'border-bottom')
+            
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 
@@ -27,9 +40,9 @@
 
         <table class="table w-100 border-0" id="addMore">
             <tr>
-                <th style="width: 30%;" class="border-0">Add New Place</th>
-                <th style="width: 30%;" class="border-0">Add Place Image</th>
-                <th style="width: 20%" class="border-0"></th>
+                <td style="width: 30%;" class="border-0">Add New Place</td>
+                <td style="width: 30%;" class="border-0">Add Place Image</td>
+                <td style="width: 20%" class="border-0"></td>
             </tr>
             <tr>
                 <td class="border-0 m-0 ps-0"><input type="text" name="place_name[]" class="form-control" id="place" /></td>
