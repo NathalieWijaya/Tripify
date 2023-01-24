@@ -1,6 +1,19 @@
 @extends('layout/template')
 
 @section('title','Add Tour')
+@section('border', 'border-bottom')
+            
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 
@@ -12,7 +25,7 @@
     @if ($errors->any())
     <p class="text-danger">{{ $errors->first() }}</p>
     @endif
-    <div style="width: 35%">
+    <div style="width: 50%">
         <div style="text-align:center">
             @if($current_tour->tour_title)
             <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;">Edit Tour </p>
@@ -27,14 +40,14 @@
                 <label for="title">Tour Header</label>
             </div>
             @if($current_tour->tour_title)
-            @foreach($current_tour_place as $current_place)
-            @php
-                $current_place_id[] = $current_place->place_id  
-            @endphp
-            @endforeach
-            @livewire('province-place', ['selectedPlace' => $current_place_id ])
+                @foreach($current_tour_place as $current_place)
+                    @php
+                        $current_place_id[] = $current_place->place_id  
+                    @endphp
+                @endforeach
+                @livewire('province-place', ['selectedPlace' => $current_place_id ])
             @else
-            @livewire('province-place', ['selectedPlace' => null])
+                @livewire('province-place', ['selectedPlace' => null])
             @endif
 
             <div class="form-floating w-100">
@@ -47,19 +60,19 @@
                 <select multiple class="form-select form-control" id="province" name="category[]">
 
                     @foreach ($category as $cate )
-                    @php
-                    $selected_category = ""
-                    @endphp
-                    @foreach ($current_tour_category as $current_category )
+                        @php
+                        $selected_category = ""
+                        @endphp
+                        @foreach ($current_tour_category as $current_category )
 
-                    @if($cate->id == $current_category->category->id)
-                    @php
-                    $selected_category = "selected"
-                    @endphp
+                            @if($cate->id == $current_category->category->id)
+                                @php
+                                    $selected_category = "selected"
+                                @endphp
 
-                    @endif
-                    @endforeach
-                    <option {{ $selected_category }} value="{{ $cate->id }}">{{ $cate->category_name }}</option>
+                            @endif
+                        @endforeach
+                        <option {{ $selected_category }} value="{{ $cate->id }}">{{ $cate->category_name }}</option>
                     @endforeach
                 </select>
             </div>

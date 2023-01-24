@@ -9,7 +9,7 @@
 @section('add', 'white')
 @section('login', 'text-white')
 @section('register', 'text-white')
-
+@section('add', 'black')
 
 @section('navHome', 'text-white')
 @section('navTour', 'text-white')

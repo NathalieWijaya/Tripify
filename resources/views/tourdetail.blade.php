@@ -14,6 +14,7 @@
 @section('navReq', 'text-black')
 @section('navGuide', 'text-black')
 @section('navAbout', 'text-black')
+@section('add', 'black')
 
 @section('content')
 
@@ -73,7 +74,7 @@
                 <div class="holder position-relative">
                     @foreach($tour->tourPlace as $tp)
                     <div class="slides">
-                        <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height=480 width=480 style="object-fit: cover" alt="{{$tp->place->place_name}}" />
+                        <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height="480px" width="100%" style="object-fit: cover;" alt="{{$tp->place->place_name}}" />
                     </div>
                     @endforeach
                     <div class="position-absolute ms-3"  style="top: 50%; left: 0%">
@@ -218,7 +219,6 @@
         }
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += " active";
-        captionText.innerHTML = dots[slideIndex-1].alt;
     }
 </script>
 
