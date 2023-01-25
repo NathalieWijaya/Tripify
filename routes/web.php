@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
     Route::delete('/deleteTour/{id}', [TourController::class, 'destroy']);
+    Route::get('/addProv', [ProvinceController::class, 'showProvinces']);
+    Route::post('/addProv', [ProvinceController::class, 'store']);
 });
 
 

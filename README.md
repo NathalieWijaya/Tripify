@@ -49,6 +49,9 @@ php artisan serve
 ## Authors
 
 • Nathalie Wijaya
-• Fransiscus Chandra 
+• Fransiscus Chandra
+• Kevin Putra
+• Billy Chandra
+
 
 

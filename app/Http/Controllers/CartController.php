@@ -16,7 +16,7 @@ class CartController extends Controller
 {
     public function index($id){
         $cart = Cart::where('user_id', $id)->get();
-
+        $stock = null;
         foreach($cart as $c){
             $sold = Transaction::where('status', 'Paid')
             ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')

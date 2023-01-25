@@ -43,9 +43,13 @@
     
     
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/addProv">Add New Province</a></li>
+                        <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="/addDestination">Add New Destination</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="/addTour">Add New Tour</a></li>
+                        
+                        
                     </ul>
                 </div>
                 @endif
