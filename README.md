@@ -4,24 +4,24 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 
 ## Prerequisites
 
-• PHP >= 7.2.5
-• Composer
-• A web server (e.g. Apache, Nginx, Xampp) 
-• Proxy server (e.g. Ngrok)
+- PHP >= 7.2.5
+- Composer
+- A web server (e.g. Apache, Nginx, Xampp) 
+- Proxy server (e.g. Ngrok)
 
 ## Features
 
-• Browse and book tours
-• Request custom tour trips
-• User authentication and authorization
-• Admin panel for managing tours and custom tour requests
-• Payment integration
+- Browse and book tours
+- Request custom tour trips
+- User authentication and authorization
+- Admin panel for managing tours and custom tour requests
+- Payment integration
 
 ## Build With
-• Laravel - The PHP web framework used
-• Bootstrap - Front-end framework
-• LiveWire - Dynamic Front-end
-• MidTrans - Payment integration
+- Laravel - The PHP web framework used.
+- Bootstrap - Front-end framework
+- LiveWire - Dynamic Front-end
+- MidTrans - Payment integration
 
 ## Installing
 1. Clone the repository to your local machine:
@@ -48,10 +48,10 @@ php artisan serve
 
 ## Authors
 
-• Nathalie Wijaya
-• Fransiscus Chandra
-• Kevin Putra
-• Billy Chandra
+- Nathalie Wijaya
+- Fransiscus Chandra
+- Kevin Putra
+- Billy Chandra
 
 
 
