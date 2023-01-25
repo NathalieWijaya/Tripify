@@ -328,4 +328,8 @@ class TourController extends Controller
         }
         return redirect('/');
     }
+    public function destroy($id){
+        DB::table('tours')->where('id', $id)->delete();
+        return redirect('/tour');
+    }
 }

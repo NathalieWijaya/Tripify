@@ -1,5 +1,18 @@
 @extends('layout.template')
+@section('title','Reset Password')
+@section('border', 'border-bottom')
 
+@section('logo', '#3DA43A')
+@section('cart', 'black')
+@section('profile', 'black')
+@section('login', 'text-black')
+@section('register', 'text-black')
+
+@section('navHome', 'text-black')
+@section('navTour', 'text-black')
+@section('navReq', 'text-black')
+@section('navGuide', 'text-black')
+@section('navAbout', 'text-black')
 @section('content')
 <div class="container my-5" style="width: 50%">
     <div class="row justify-content-center">

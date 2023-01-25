@@ -41,7 +41,7 @@ Route::get('/guide', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth', 'user']], function () {
+Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
 
     Route::get('/requestTrip/{id}', [ProvinceController::class, 'showProvince']);
     Route::get('/requestTrip', [ReqTripController::class, 'showProvinces']);
@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/editTour/{id}', [TourController::class, 'edit']);
     Route::get('editPlaceTour/{id}', [TourController::class, 'showPlace']);
     Route::patch('/editTour/{id}', [TourController::class, 'update']);
+    Route::delete('/deleteTour/{id}', [TourController::class, 'destroy']);
 });
 
 

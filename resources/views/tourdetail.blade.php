@@ -63,7 +63,7 @@
     <div style="width: 80%">
         <div style="--bs-breadcrumb-divider: '>';">
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="/tour/province/{{$tour->province->id}}" style="color: black; text-decoration: none">{{ $tour->province->province_name }}</a></li>
+                <li class="breadcrumb-item"><div style="color: black; text-decoration: none">{{ $tour->province->province_name }}</div></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $tour->tour_title }}</li>
             </ol>
         </div>
@@ -77,6 +77,7 @@
                         <img src="{{ asset('storage/images/'. $tp->place->place_image) }}" height="480px" width="100%" style="object-fit: cover;" alt="{{$tp->place->place_name}}" />
                     </div>
                     @endforeach
+                  
                     <div class="position-absolute ms-3"  style="top: 50%; left: 0%">
                         <a class="prev bg-white p-2 rounded-circle" onclick="plusSlides(-1)">
                             <i class="bi bi-chevron-left text-black" style="font-size: 16px"></i>
@@ -87,6 +88,7 @@
                             <i class="bi bi-chevron-right text-black" style="font-size: 16px"></i>
                         </a>
                     </div>
+            
                 </div>    
 
                 <div class="d-flex flex-row align-items-center mt-3 ">
@@ -112,26 +114,39 @@
                         @endphp
                     </h3>
 
+                    @if(Auth::user() and Auth::user()->is_admin == true)
+                    @else
                     <div class="d-flex flex-row align-items-center">
                         <div class="btn minus bg-light text-center align-self-center" style="font-size: 18px; width:35px">-</div>
                         <input class="num text-center border-0 mx-2" style="font-size: 18px; width: 25px" name="qty" value="1">
                         <div class="btn plus bg-light text-center align-self-center" style="font-size: 18px; width:35px">+</div>
                     </div>
+                    @endif
                 </div>
                 
                 <p class="text-danger mb-3 mt-2">Remaining slot(s): {{$stock}}</p>
 
                 <div class="d-flex flex-row align-items-center w-100 ms-0">
+                    @if(Auth::user() and Auth::user()->is_admin == true)
+                    <a type="button" value="{{$tour->id}}" class="btn text-white bg-secondary me-2 addCart" href="/editTour/{{ $tour->id }}"  style="font-size: 18px"  >Edit</a>
+                    
+                    <button type="button"  class="btn text-white deleteTour" value="{{$tour->id}}" style="background-color:crimson; font-size: 18px">Delete</button>
+                    {{-- <a type="button"  class="btn text-white deleteTour" value="{{$tour->id}}" href="/deleteTour/{{ $tour->id }}" style="background-color:crimson; font-size: 18px">Delete</a> --}}
+                    @else
+                        
                     <button {{$disabled}} type="button" value="{{$tour->id}}" class="btn text-white bg-secondary me-2 addCart" style="font-size: 18px">Add to Cart</button>
                     <button type="submit" class="btn text-white" name="id" value="{{$tour->id}}" style="background-color: #3DA43A; font-size: 18px">Purchase</button>
+                    @endif
                 </div>
                 
                 <div class="mt-4">
                     <p style="font-weight: bold;font-size: 18px;">Description</p>
                     <p class="mb-1" style="font-size: 16px;">
+                        <b> Date:
                     @php
-                        echo "Date: " . date_format(date_create($tour->start_date),"l, d F Y") . " - " . date_format(date_create($tour->end_date),"l, d F Y");
+                        echo  date_format(date_create($tour->start_date),"l, d F Y") . " - " . date_format(date_create($tour->end_date),"l, d F Y");
                     @endphp
+                        </b>
                     </p>
                     <p style="font-size: 16px;">{{$tour->description}}</p>
                 </div>
@@ -241,6 +256,17 @@
             })
         };
     })
+    $('.deleteTour').on('click',function(){
+        var tourid = $(this).val();
+        $.ajax({
+            type: "post",
+            data: {_method: 'DELETE', _token: "{{ csrf_token() }}"},
+            url: "/deleteTour/" + tourid,
+            success: function (html) {
+                window.location = '/tour';
+             }
+        })
+    }); 
 </script>
 
 

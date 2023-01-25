@@ -1,4 +1,5 @@
 @extends('layout/template')
+@section('title','Login')
 @section('border', 'border-bottom')
 
 @section('logo', '#3DA43A')
