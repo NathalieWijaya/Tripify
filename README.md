@@ -1,5 +1,4 @@
 <img src="https://drive.google.com/uc?export=view&id=1WpfZJJS5LYut5ZbLoaJVD_lx1lO4k3zu" style="width: 300px; height: 500px" />
-<!-- <a href="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO"><img src="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO" style="width: 300px; max-width: 100%; height: 500px" title="Click to enlarge picture" /></a> -->
 
 ## Tripify
 
