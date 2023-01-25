@@ -1,4 +1,5 @@
-<a href="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO"><img src="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO" style="width: 300px; max-width: 100%; height: 500px" title="Click to enlarge picture" /></a>
+<img src="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO" style="width: 300px; height: 500px" />
+<!-- <a href="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO"><img src="https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO" style="width: 300px; max-width: 100%; height: 500px" title="Click to enlarge picture" /></a> -->
 ## Tripify
 
 Tripify is a website that allows users to browse and book tours, as well as request their own custom tour trips.
