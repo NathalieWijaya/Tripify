@@ -1,4 +1,4 @@
-![Home Page](https://drive.google.com/file/d/1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO/view?usp=share_link)
+![Home Page](https://drive.google.com/uc?export=view&id=1GTgW9T8--7DzOtXlz4WVIBx4_yy5mmiO)
 ## Tripify
 
 Tripify is a website that allows users to browse and book tours, as well as request their own custom tour trips.
