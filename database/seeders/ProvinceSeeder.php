@@ -26,6 +26,9 @@ class ProvinceSeeder extends Seeder
         DB::table('provinces')->insert([
             'province_name' => 'Nusa Tenggara Timur'
         ]);
+        DB::table('provinces')->insert([
+            'province_name' => 'Papua Barat'
+        ]);
         
     }
 }

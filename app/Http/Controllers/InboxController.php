@@ -18,7 +18,7 @@ class InboxController extends Controller
             $inbox = RequestTrip::all()->sortByDesc('request_date');
         }
         else {
-            $inbox = RequestTrip::where('user_id', $id);
+            $inbox = RequestTrip::where('user_id', $id)->get();
         }
         $status = Status::all();
         $province = Province::all();
@@ -28,12 +28,14 @@ class InboxController extends Controller
         $selectedSend = null;
         $selectedDestination = null;
         $disabled = "";
-        $temp = $inbox->get();
+        $temp = $inbox;
+
         if(count($temp) == 0){
             $disabled = "disabled";
         }
 
-        $inbox = $inbox->paginate(10);
+        // $inbox = $inbox->get();
+
 
         return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
     }
