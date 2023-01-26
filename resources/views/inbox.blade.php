@@ -163,9 +163,9 @@
                         </td>
                     @else 
                     <td>
-                        <a class="btn p-0 me-2 bg-transparent border-0 bi bi-eye"></a>
+                        <a href="/requestTripView/{{$i->id}}" class="btn p-0 me-2 bg-transparent border-0 bi bi-eye"></a>
                         <button class="btn p-0 me-2 bg-transparent border-0 bi bi-check-lg" data-bs-toggle="modal" data-bs-target="#modal{{$i->id}}"></button>
-                        <a class="btn p-0 m-0 bg-transparent border-0 bi bi-bag-plus"></a>
+                        <a href="/addTour/private/{{$i->user_id}}" class="btn p-0 m-0 bg-transparent border-0 bi bi-bag-plus"></a>
                     </td>
                     @endif 
                 </tr>
@@ -210,9 +210,7 @@
                 </tr>
             @endif
         </table>
-        <div class="d-flex flex-row justify-content-end">
-            {{$inbox->links()}}
-        </div>
+    
     </div>
 </div>
 @endsection

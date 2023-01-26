@@ -41,13 +41,15 @@ Route::get('/guide', function () {
 
 Auth::routes();
 
+Route::get('/requestTripView/{id}', [ProvinceController::class, 'showProvince']);
+Route::get('/requestTripView/{id}', [ReqTripController::class, 'edit']);
+
 Route::group(['middleware' => ['auth', 'user', 'verified']], function () {
 
     Route::get('/requestTrip/{id}', [ProvinceController::class, 'showProvince']);
     Route::get('/requestTrip', [ReqTripController::class, 'showProvinces']);
     Route::post('/requestTrip/{id}', [ReqTripController::class, 'store']);
-    Route::get('/requestTripView/{id}', [ProvinceController::class, 'showProvince']);
-    Route::get('/requestTripView/{id}', [ReqTripController::class, 'edit']);
+ 
 
     Route::get('/cart/{id}', [CartController::class, 'index']);
     Route::post('/cart/add/{tour}/{qty}', [CartController::class, 'store']);
