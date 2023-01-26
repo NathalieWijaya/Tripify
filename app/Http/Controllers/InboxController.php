@@ -28,12 +28,12 @@ class InboxController extends Controller
         $selectedSend = null;
         $selectedDestination = null;
         $disabled = "";
-        $temp = $inbox->get();
+        $temp = $inbox;
         if(count($temp) == 0){
             $disabled = "disabled";
         }
 
-        $inbox = $inbox->paginate(10);
+        // $inbox = $inbox->paginate(10);
 
         return view('inbox', compact('status', 'province', 'inbox', 'email', 'selectedStatus', 'selectedSend', 'selectedDestination', 'disabled'));
     }

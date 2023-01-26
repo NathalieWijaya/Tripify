@@ -7,6 +7,7 @@ use App\Models\SocialAccount;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -63,6 +64,10 @@ class SocialiteController extends Controller
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
 
+                ]);
+
+                DB::table('users')->where('email', $socialUser->getEmail())->update([
+                    'email_verified_at' => now()
                 ]);
                 
             }
