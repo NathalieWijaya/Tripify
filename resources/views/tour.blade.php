@@ -114,6 +114,9 @@
 
                 <div class="row mt-4 content" style="font-size: 15px;">
                     @foreach ($tour as $t)
+
+                    @if($t->start_date > date('Y-m-d', strtotime('tomorrow')))
+
                         @if($selectedCategory == null)
                             <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
                         @elseif($selectedCategory == "all")
@@ -152,6 +155,7 @@
                             @endphp
                         </p>
                     </a>
+                    @endif
                     @endforeach
                 </div>
             </div>

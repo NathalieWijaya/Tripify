@@ -7,8 +7,8 @@ use App\Models\SocialAccount;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\DB;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class SocialiteController extends Controller
