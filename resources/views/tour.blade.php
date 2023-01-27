@@ -113,52 +113,55 @@
                 </form>
 
                 <div class="row mt-4 content" style="font-size: 15px;">
+                    @php 
+                        $i = 0;
+                    @endphp
                     @foreach ($tour as $t)
+                        
+                        @if($t->start_date > date('Y-m-d', strtotime('tomorrow')))
 
-                    @if($t->start_date > date('Y-m-d', strtotime('tomorrow')))
+                            @if($stock[$i++] != 0)
 
-                        @if($stock != 0)
-
-                        @if($selectedCategory == null)
-                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
-                        @elseif($selectedCategory == "all")
-                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
-                        @else
-                            <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->tour_id}}" style="text-decoration: none;">
-                        @endif
-                        @if($selectedCategory == null)    
-                            @foreach ($t->tourPlace as $tp)
-                                <div class="square-container">
-                                    <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
-                                </div>
-                                @break
-                            @endforeach
-                        @elseif($selectedCategory == "all")
-                            @foreach ($t->tourPlace as $tp)
-                                <div class="square-container">
-                                    <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
-                                </div>
-                                @break
-                            @endforeach
-                        @else
-                            @foreach ($tourPlaces as $tp)
-                                @if($tp->tour_id == $t->tour_id )
-                                    <div class="square-container">
-                                        <img class="square" src="{{ asset('storage/images/'. $tp->place_image) }}"/>
-                                    </div>
-                                @break
+                                @if($selectedCategory == null)
+                                    <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                                @elseif($selectedCategory == "all")
+                                    <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->id}}" style="text-decoration: none;">
+                                @else
+                                    <a class="col-lg-3 mb-3 text-black" href="/tour/{{$t->tour_id}}" style="text-decoration: none;">
                                 @endif
-                            @endforeach
+                                @if($selectedCategory == null)    
+                                    @foreach ($t->tourPlace as $tp)
+                                        <div class="square-container">
+                                            <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
+                                        </div>
+                                        @break
+                                    @endforeach
+                                @elseif($selectedCategory == "all")
+                                    @foreach ($t->tourPlace as $tp)
+                                        <div class="square-container">
+                                            <img class="square" src="{{ asset('storage/images/'. $tp->place->place_image) }}"/>
+                                        </div>
+                                        @break
+                                    @endforeach
+                                @else
+                                    @foreach ($tourPlaces as $tp)
+                                        @if($tp->tour_id == $t->tour_id )
+                                            <div class="square-container">
+                                                <img class="square" src="{{ asset('storage/images/'. $tp->place_image) }}"/>
+                                            </div>
+                                        @break
+                                        @endif
+                                    @endforeach
+                                @endif
+                                <p class="mt-2 mb-2" style="font-weight: bold">{{ $t->tour_title }}</p>
+                                <p>
+                                    @php
+                                    echo "Rp". number_format($t->price, 2, ",", ".");
+                                    @endphp
+                                </p>
+                            </a>
+                            @endif
                         @endif
-                        <p class="mt-2 mb-2" style="font-weight: bold">{{ $t->tour_title }}</p>
-                        <p>
-                            @php
-                            echo "Rp". number_format($t->price, 2, ",", ".");
-                            @endphp
-                        </p>
-                    </a>
-                    @endif
-                    @endif
                     @endforeach
                 </div>
             </div>

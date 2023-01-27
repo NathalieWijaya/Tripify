@@ -41,9 +41,7 @@ class TourController extends Controller
             ->where('transaction_details.tour_id', $t->id)
             ->sum('transaction_details.quantity');
 
-            $tours = Tour::find($t->id);
-
-            $stock = $tours->max_slot - $sold;
+            $stock[] = $t->max_slot - $sold;
         }
 
 
@@ -60,19 +58,6 @@ class TourController extends Controller
         $tour = Tour::where('is_public', '1')->get();
         $selectedSort = $request->sort;
         $tourPlaces = null;
-
-        $stock = null;
-        foreach($tour as $t){
-            $sold = Transaction::where('status', 'Paid')
-            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
-            ->where('transaction_details.tour_id', $t->id)
-            ->sum('transaction_details.quantity');
-
-            $tours = Tour::find($t->id);
-
-            $stock = $tours->max_slot - $sold;
-        }
-
 
         if($selectedProvince != "all" and $selectedCategory != "all"){
             $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('province_id', '=', $selectedProvince)->where('is_public', '1')->get();
@@ -99,6 +84,18 @@ class TourController extends Controller
             $tour = $tour->sortBy('price');
         } else if ($selectedSort == "max") {
             $tour = $tour->sortByDesc('price');
+        }
+
+        //dd($tour);
+        
+        $stock = null;
+        foreach($tour as $t){
+            $sold = Transaction::where('status', 'Paid')
+            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transaction_details.tour_id', $t->id)
+            ->sum('transaction_details.quantity');
+
+            $stock[] = $t->max_slot - $sold;
         }
         
         return view('tour', compact('tour','selectedProvince','selectedCategory', 'disabled', 'province', 'category', 'selectedSort', 'tourPlaces', 'stock'));
