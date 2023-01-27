@@ -116,6 +116,7 @@
                     <td>Status</td>
                     <td>Updated at</td>
                     <td>Note</td>
+                    <td>View</td>
                 @endif
             </tr>
 
@@ -168,6 +169,13 @@
                         <a href="/addTour/private/{{$i->user_id}}" class="btn p-0 m-0 bg-transparent border-0 bi bi-bag-plus"></a>
                     </td>
                     @endif 
+
+                    @if(Auth::user()->is_admin == false)
+                        <td>
+                            <a href="/requestTripView/{{$i->id}}" class="btn p-0 bg-transparent border-0 bi bi-eye"></a>
+                        </td>
+                    @endif
+                    
                 </tr>
 
                 <div class="modal fade modal" id="modal{{$i->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
