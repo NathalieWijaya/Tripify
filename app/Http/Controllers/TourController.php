@@ -33,7 +33,21 @@ class TourController extends Controller
         $disabled = null;
         $selectedSort = null;
         $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->get();
-        return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat','selectedProvince','disabled','selectedCategory','selectedSort', 'tourPlaces'));
+
+        $stock = null;
+        foreach($tour as $t){
+            $sold = Transaction::where('status', 'Paid')
+            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transaction_details.tour_id', $t->id)
+            ->sum('transaction_details.quantity');
+
+            $tours = Tour::find($t->id);
+
+            $stock = $tours->max_slot - $sold;
+        }
+
+
+        return view('tour', compact('tour', 'province', 'category', 'selectedProv', 'selectedCat','selectedProvince','disabled','selectedCategory','selectedSort', 'tourPlaces', 'stock'));
     }
 
     public function filter(Request $request)
@@ -46,6 +60,18 @@ class TourController extends Controller
         $tour = Tour::where('is_public', '1')->get();
         $selectedSort = $request->sort;
         $tourPlaces = null;
+
+        $stock = null;
+        foreach($tour as $t){
+            $sold = Transaction::where('status', 'Paid')
+            ->join('transaction_details', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transaction_details.tour_id', $t->id)
+            ->sum('transaction_details.quantity');
+
+            $tours = Tour::find($t->id);
+
+            $stock = $tours->max_slot - $sold;
+        }
 
 
         if($selectedProvince != "all" and $selectedCategory != "all"){
@@ -75,7 +101,7 @@ class TourController extends Controller
             $tour = $tour->sortByDesc('price');
         }
         
-        return view('tour', compact('tour','selectedProvince','selectedCategory', 'disabled', 'province', 'category', 'selectedSort', 'tourPlaces'));
+        return view('tour', compact('tour','selectedProvince','selectedCategory', 'disabled', 'province', 'category', 'selectedSort', 'tourPlaces', 'stock'));
     }
 
     // public function sort($sort)
