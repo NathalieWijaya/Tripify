@@ -28,9 +28,9 @@
     <div style="width: 50%">
         <div style="text-align:center">
             @if($current_tour->tour_title)
-            <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;">Edit Tour </p>
+            <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;">Edit Tour</p>
             @else
-            <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;">Add a Tour </p>
+            <p style="font-family: Comfortaa; font-size:30px; color: #3DA43A;">Add a Tour</p>
             @endif
             <p>Please Provide the Following Information</p>
         </div>
