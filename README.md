@@ -32,15 +32,12 @@ git clone https://github.com/NathalieWijaya/Tripify.git
 2. Install dependencies:
 composer install
 
-3. Generate an app encryption key:
-php artisan key:generate
+3. Create a new database and configure your .env file (database name: tripify)
 
-4. Create a new database and configure your .env file (database name: tripify)
-
-5. Run the migrations and seedings
+4. Run the migrations and seedings
 php artisan migrate --seed
 
-6. Start the development server:
+5. Start the development server:
 php artisan serve
 
 
