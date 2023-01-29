@@ -8,8 +8,8 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 
 - PHP >= 7.2.5
 - Composer
-- A web server (e.g. Apache, Nginx, Xampp) 
-- Proxy server (e.g. Ngrok)
+- Xampp (A web server) 
+- Ngrok (Proxy server)
 
 ## Features
 
