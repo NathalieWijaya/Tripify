@@ -33,10 +33,6 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 
 3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
 
-4. Run the migrations and seedings php artisan migrate --seed
-
-3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
-
 4. Run the migrations and seedings
 php artisan migrate --seed
 
