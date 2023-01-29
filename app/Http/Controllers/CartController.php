@@ -45,78 +45,78 @@ class CartController extends Controller
     public function getCheckedCart(Request $request) {
         $grossAmount = 0;
         
-            foreach($request->checkbox as $c){
-            
-                $id = $request->id;
-                $tourId = '';
-    
-                for($i = 0; $i < count($id); $i++){
-                    if($c == $id[$i]){
-                        $cart = Cart::find($c);
-                        $tourId = $cart->tour_id;
-    
-                        $tour = Tour::find($tourId);
-                        $price = $tour->price;
-    
-                        $qty = $request->qty[$i];
-                        $grossAmount += ($price * $qty);
-    
-                        $item = new stdClass();
-                        $item->id = $tourId;
-                        $item->price = $price;
-                        $item->quantity = $qty;
-                        $item->name = $tour->tour_title;
-                        $item->merchant_name = "Tripify";
-                       
-                        $itemDetails[] = $item;
-    
-                        $cart->qtyBuy = $qty;
-                        $carts[] = $cart;
-                    } 
-                }
+        foreach($request->checkbox as $c){
+        
+            $id = $request->id;
+            $tourId = '';
+
+            for($i = 0; $i < count($id); $i++){
+                if($c == $id[$i]){
+                    $cart = Cart::find($c);
+                    $tourId = $cart->tour_id;
+
+                    $tour = Tour::find($tourId);
+                    $price = $tour->price;
+
+                    $qty = $request->qty[$i];
+                    $grossAmount += ($price * $qty);
+
+                    $item = new stdClass();
+                    $item->id = $tourId;
+                    $item->price = $price;
+                    $item->quantity = $qty;
+                    $item->name = $tour->tour_title;
+                    $item->merchant_name = "Tripify";
+                    
+                    $itemDetails[] = $item;
+
+                    $cart->qtyBuy = $qty;
+                    $carts[] = $cart;
+                } 
             }
-    
-            $trans = Transaction::create([
-                'user_id' => Auth::user()->id,
-                'total_price' => $grossAmount,
-                'status' => 'Unpaid'
+        }
+
+        $trans = Transaction::create([
+            'user_id' => Auth::user()->id,
+            'total_price' => $grossAmount,
+            'status' => 'Unpaid'
+        ]);
+        
+
+        foreach($itemDetails as $i){
+            DB::table('transaction_details')->insert([
+                'transaction_id' => $trans->id,
+                'tour_id' =>  $i->id,
+                'quantity' => $i->quantity
             ]);
-           
-    
-            foreach($itemDetails as $i){
-                DB::table('transaction_details')->insert([
-                    'transaction_id' => $trans->id,
-                    'tour_id' => $i->id,
-                    'quantity' => $i->quantity
-                ]);
-                
-            }
-    
-            Config::$serverKey = config('midtrans.server_key');
-            Config::$isProduction = false;
-            Config::$isSanitized = true;
-            Config::$is3ds = true;
             
-            $params = array(
-                'transaction_details' => array(
-                    'order_id' => $trans->id,
-                    'gross_amount' => $grossAmount
-                ),
-    
-                'item_details' => json_decode(json_encode($itemDetails), true),
-                
-                'customer_details' => array(
-                    'first_name' => $trans->user->name,
-                    'email' => $trans->user->email,
-                    'phone' => $trans->user->phone
-                ),
-            );
+        }
+
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = false;
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+        
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $trans->id,
+                'gross_amount' => $grossAmount
+            ),
+
+            'item_details' => json_decode(json_encode($itemDetails), true),
             
-            $snapToken = Snap::getSnapToken($params);
+            'customer_details' => array(
+                'first_name' => $trans->user->name,
+                'email' => $trans->user->email,
+                'phone' => $trans->user->phone
+            ),
+        );
+        
+        $snapToken = Snap::getSnapToken($params);
+
+        return view('purchase', compact('snapToken', 'params', 'carts'));
     
-            return view('purchase', compact('snapToken', 'params', 'carts'));
-        
-        
+    
     }
 
     public function destroy($id){
