@@ -24,7 +24,7 @@ class TourController extends Controller
     public function index()
     {
         $tour = Tour::all();
-        if (Auth::user()->is_admin == false) {
+        if (Auth::user() and Auth::user()->is_admin == false) {
             $tour = $tour->where('is_public', '1');
         }
         $province = Province::all();
@@ -59,7 +59,7 @@ class TourController extends Controller
         $province = Province::all();
         $category = Category::all();
         $tour = Tour::all();
-        if (Auth::user()->is_admin == false) {
+        if (Auth::user() and Auth::user()->is_admin == false) {
             $tour = $tour->where('is_public', '1');
         }
         $selectedSort = $request->sort;
@@ -67,7 +67,7 @@ class TourController extends Controller
 
         if($selectedProvince != "all" and $selectedCategory != "all"){
             $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('province_id', '=', $selectedProvince);
-            if (Auth::user()->is_admin == false) {
+            if (Auth::user() and Auth::user()->is_admin == false) {
                 $tour = $tour->where('is_public', '1');
             }
             $tour = $tour->get();
@@ -76,7 +76,7 @@ class TourController extends Controller
 
         else if($selectedProvince != 'all'){
             $tour = Tour::where('province_id', '=', $selectedProvince);
-            if (Auth::user()->is_admin == false) {
+            if (Auth::user() and Auth::user()->is_admin == false) {
                 $tour = $tour->where('is_public', '1');
             }
             $tour = $tour->get();
@@ -84,7 +84,7 @@ class TourController extends Controller
 
         else if($selectedCategory != 'all'){
             $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory);
-            if (Auth::user()->is_admin == false) {
+            if (Auth::user() and Auth::user()->is_admin == false) {
                 $tour = $tour->where('is_public', '1');
             }
             $tour = $tour->get();
