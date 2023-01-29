@@ -36,16 +36,19 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 4. Run the migrations and seedings
 php artisan migrate --seed
 
-5. Start the development server:
+5. Connect the storage: 
+php artisan storage:link
+
+6. Start the development server:
 php artisan serve
 
-6. Run ngrok and make the server live:
+7. Run ngrok and make the server live:
 ngrok
 ngrok http {PORT}
 
-7. Copy the forwarding link and login to Midtrans sanbox https://dashboard.sandbox.midtrans.com/login 
+8. Copy the forwarding link and login to Midtrans sanbox https://dashboard.sandbox.midtrans.com/login 
 
-8. Go to Setting > Configuration and paste the forwarding link. Add "/api/callback" at the end. Lastly, scroll and click Update button.
+9. Go to Setting > Configuration and paste the forwarding link. Add "/api/callback" at the end. Lastly, scroll and click Update button.
 
 
 ## Authors
@@ -54,6 +57,3 @@ ngrok http {PORT}
 - Fransiscus Chandra
 - Kevin Putra
 - Billy Chandra
-
-
-
