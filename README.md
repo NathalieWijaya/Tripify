@@ -26,19 +26,21 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 - MidTrans - Payment integration
 
 ## Installing
-1. Clone the repository to your local machine:
-git clone https://github.com/NathalieWijaya/Tripify.git
+1. Clone the repository to your local machine: git clone https://github.com/NathalieWijaya/Tripify.git
 
-2. Install dependencies:
-composer install
+2. Install dependencies: composer install
 
-3. Create a new database and configure your .env file (database name: tripify)
+3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
 
-4. Run the migrations and seedings
-php artisan migrate --seed
+4. Run the migrations and seedings php artisan migrate --seed
 
-5. Start the development server:
-php artisan serve
+5. Start the development server: php artisan serve
+
+6. Run ngrok and make the server live: ngrok ngrok http {PORT}
+
+7. Copy the forwarding link and login to Midtrans sanbox https://dashboard.sandbox.midtrans.com/login
+
+8. Go to Setting > Configuration and paste the forwarding link. Add "/api/callback" at the end. Lastly, scroll and click Update button.
 
 
 
