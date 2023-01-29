@@ -8,6 +8,7 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 
 - PHP >= 7.2.5
 - Composer
+
 - Xampp (A web server) 
 - Ngrok (Proxy server)
 
@@ -26,11 +27,13 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 - MidTrans - Payment integration
 
 ## Installing
-1. Clone the repository to your local machine:
-git clone https://github.com/NathalieWijaya/Tripify.git
+1. Clone the repository to your local machine: git clone https://github.com/NathalieWijaya/Tripify.git
 
-2. Install dependencies:
-composer install
+2. Install dependencies: composer install
+
+3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
+
+4. Run the migrations and seedings php artisan migrate --seed
 
 3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
 
