@@ -20,8 +20,8 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 - Payment integration
 
 ## Build With
-- Laravel - The PHP web framework used.
-- Bootstrap - Front-end framework
+- Laravel 8.0 - The PHP web framework used.
+- Bootstrap 5.3 - Front-end framework
 - LiveWire - Dynamic Front-end
 - MidTrans - Payment integration
 
@@ -32,20 +32,21 @@ git clone https://github.com/NathalieWijaya/Tripify.git
 2. Install dependencies:
 composer install
 
-3. Copy the .env.example file to .env
-cp .env.example .env
+3. Create a new database and configure your .env file (database name: tripify, MidTrans, Mailstrap, Google)
 
-4. Generate an app encryption key:
-php artisan key:generate
-
-5. Create a new database and configure your .env file (database name: tripify)
-
-6. Run the migrations and seedings
+4. Run the migrations and seedings
 php artisan migrate --seed
 
-7. Start the development server:
+5. Start the development server:
 php artisan serve
 
+6. Run ngrok and make the server live:
+ngrok
+ngrok http {PORT}
+
+7. Copy the forwarding link and login to Midtrans sanbox https://dashboard.sandbox.midtrans.com/login 
+
+8. Go to Setting > Configuration and paste the forwarding link. Add "/api/callback" at the end. Lastly, scroll and click Update button.
 
 
 ## Authors
