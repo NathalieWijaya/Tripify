@@ -14,6 +14,11 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        
+        DB::table('transactions')->insert([
+            'user_id' => '2',
+            'transaction_time' => now(),
+            'total_price' => '850000',
+            'status' => 'Paid'
+        ]);
     }
 }
