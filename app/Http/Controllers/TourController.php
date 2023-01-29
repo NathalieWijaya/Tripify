@@ -23,7 +23,10 @@ class TourController extends Controller
 {
     public function index()
     {
-        $tour = Tour::where('is_public', '1')->get();
+        $tour = Tour::all();
+        if (Auth::user()->is_admin == false) {
+            $tour = $tour->where('is_public', '1');
+        }
         $province = Province::all();
         $category = Category::all();
         $selectedProv = "all";
@@ -55,34 +58,49 @@ class TourController extends Controller
         $disabled = null;
         $province = Province::all();
         $category = Category::all();
-        $tour = Tour::where('is_public', '1')->get();
+        $tour = Tour::all();
+        if (Auth::user()->is_admin == false) {
+            $tour = $tour->where('is_public', '1');
+        }
         $selectedSort = $request->sort;
         $tourPlaces = null;
 
         if($selectedProvince != "all" and $selectedCategory != "all"){
-            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('province_id', '=', $selectedProvince)->where('is_public', '1')->get();
+            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('province_id', '=', $selectedProvince);
+            if (Auth::user()->is_admin == false) {
+                $tour = $tour->where('is_public', '1');
+            }
+            $tour = $tour->get();
             $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->join('places', 'places.id', '=', 'tour_places.place_id')->where('tours.province_id','=',$selectedProvince)->get();
         }
 
         else if($selectedProvince != 'all'){
-            $tour = Tour::where('province_id','=' , $selectedProvince)->where('is_public', '1')->where('is_public', '1')->get();
+            $tour = Tour::where('province_id', '=', $selectedProvince);
+            if (Auth::user()->is_admin == false) {
+                $tour = $tour->where('is_public', '1');
+            }
+            $tour = $tour->get();
         }
 
         else if($selectedCategory != 'all'){
-            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory)->where('is_public', '1')->get();
-            $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->join('places', 'places.id', '=', 'tour_places.place_id')->where('is_public', '1')->get();
+            $tour = Tour::join('tour_categories', 'tours.id', '=', 'tour_categories.tour_id')->where('category_id', '=', $selectedCategory);
+            if (Auth::user()->is_admin == false) {
+                $tour = $tour->where('is_public', '1');
+            }
+            $tour = $tour->get();
+            $tourPlaces = Tour::join('tour_places', 'tours.id', '=', 'tour_places.tour_id')->join('places', 'places.id', '=', 'tour_places.place_id')->get();
         }
-
-        
-
 
         if ($selectedSort == "asc") {
             $tour = $tour->sortBy('tour_title');
-        } else if ($selectedSort == "desc") {
+        } 
+        else if ($selectedSort == "desc") {
             $tour = $tour->sortByDesc('tour_title');
-        } else if ($selectedSort == "min") {
+        } 
+        else if ($selectedSort == "min") {
             $tour = $tour->sortBy('price');
-        } else if ($selectedSort == "max") {
+        } 
+        else if ($selectedSort == "max") {
             $tour = $tour->sortByDesc('price');
         }
 
@@ -100,21 +118,6 @@ class TourController extends Controller
         
         return view('tour', compact('tour','selectedProvince','selectedCategory', 'disabled', 'province', 'category', 'selectedSort', 'tourPlaces', 'stock'));
     }
-
-    // public function sort($sort)
-    // {
-    //     $tour = Tour::where('is_public', '1')->get();
-    //     if ($sort == "asc") {
-    //         $tour = $tour->sortBy('tour_title');
-    //     } else if ($sort == "desc") {
-    //         $tour = $tour->sortByDesc('tour_title');
-    //     } else if ($sort == "min") {
-    //         $tour = $tour->sortBy('price');
-    //     } else if ($sort == "max") {
-    //         $tour = $tour->sortByDesc('price');
-    //     }
-  
-    // }
 
     public function purchase(Request $request)
     {

@@ -110,7 +110,7 @@
                         <div class="d-flex flex-column justify-content-between">
                             <div class="align-self-end d-flex flex-row">
                                 <button class="bi bi-trash3 deletebutton me-3" style="background: none; border:none; font-size:22px" id="deletebutton" type="button" value="{{ $c->tour_id }}"></button>
-                                <input class="form-check-input checkbox" {{$stock[$i] == 0 ? "disabled" : "" }} style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
+                                <input class="form-check-input checkbox" {{$stock[$i] == 0 ? "disabled" : ($c->tour->start_date > date('Y-m-d', strtotime('tomorrow')) ? "" : "disabled") }} style="font-size: 18px;" type="checkbox" name="checkbox[]" id="checkbox" value="{{$c->id}}">
                                 <input style="display:none" name="id[]" value="{{$c->id}}">
                             </div>
                             <div class="d-flex flex-row align-items-center">
