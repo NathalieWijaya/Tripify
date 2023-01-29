@@ -34,13 +34,19 @@ Tripify is a website that allows users to browse and book tours, as well as requ
 
 4. Run the migrations and seedings php artisan migrate --seed
 
-5. Start the development server: php artisan serve
+3. Copy the .env.example file to .env
+cp .env.example .env
 
-6. Run ngrok and make the server live: ngrok ngrok http {PORT}
+4. Generate an app encryption key:
+php artisan key:generate
 
-7. Copy the forwarding link and login to Midtrans sanbox https://dashboard.sandbox.midtrans.com/login
+5. Create a new database and configure your .env file (database name: tripify)
 
-8. Go to Setting > Configuration and paste the forwarding link. Add "/api/callback" at the end. Lastly, scroll and click Update button.
+6. Run the migrations and seedings
+php artisan migrate --seed
+
+7. Start the development server:
+php artisan serve
 
 
 
